@@ -4,6 +4,10 @@
     "short_name": "GymBrah",
     "description": "Build small habits to make a big difference."
   },
+  "language": {
+    "en": "English",
+    "it": "Italian"
+  },
   "header": {
     "button": "Start now"
   },

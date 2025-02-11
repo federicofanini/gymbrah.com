@@ -12,7 +12,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="[&>svg]:size-5 size-[70px] hidden md:flex items-center justify-center border-r border-primary"
+      className="[&>svg]:size-5 size-[70px] hidden md:flex items-center justify-center border-b border-r border-primary rounded-none"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
       <Sun className="h-[1.5rem] w-[1.3rem] dark:hidden" />

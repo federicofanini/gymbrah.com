@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { UserMenu } from "@/components/private/b2b/user-menu";
 import { SettingsButton } from "@/components/private/b2b/settings-button";
 import { BusinessCodeDisplay } from "./business-code";
+import { ChangeLanguage } from "../change-lang";
 
 export function Header() {
   return (
@@ -26,6 +27,10 @@ export function Header() {
 
         <div className="flex space-x-8 items-center">
           <ThemeToggle />
+        </div>
+
+        <div className="flex space-x-8 items-center">
+          <ChangeLanguage />
         </div>
 
         <div className="hidden md:flex pl-4 space-x-8 items-center">
