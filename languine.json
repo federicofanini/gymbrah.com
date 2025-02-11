@@ -1,16 +1,12 @@
 {
-  "projectId": "",
+  "projectId": "prj_EMJHegnZO5bqTtFW2pNpN",
   "locale": {
     "source": "en",
-    "targets": [
-      "it"
-    ]
+    "targets": ["it"]
   },
   "files": {
     "json": {
-      "include": [
-        "messages/[locale].json"
-      ]
+      "include": ["src/messages/[locale].json"]
     }
   }
 }

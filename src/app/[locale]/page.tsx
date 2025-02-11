@@ -7,6 +7,14 @@ import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
 import { Pricing } from "@/components/sections/pricing";
 import { useTranslations } from "next-intl";
+import languineConfig from "languine.json";
+
+// Add this to validate locales
+export function generateStaticParams() {
+  return [...languineConfig.locale.targets, languineConfig.locale.source].map(
+    (locale) => ({ locale })
+  );
+}
 
 export default function Home() {
   const t = useTranslations("HomePage");
