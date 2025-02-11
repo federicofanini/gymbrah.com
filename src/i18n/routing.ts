@@ -1,6 +1,6 @@
+import languineConfig from "languine.json";
 import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
-import languineConfig from "languine.json";
 
 export const routing = defineRouting({
   locales: [...languineConfig.locale.targets, languineConfig.locale.source],

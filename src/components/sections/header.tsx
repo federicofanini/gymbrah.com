@@ -1,17 +1,15 @@
 "use client";
 
 import { MobileDrawer } from "@/components/mobile-drawer";
-import { siteConfig } from "@/lib/config";
 import OutlinedButton from "../ui/outlined-button";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Dock, Trophy } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { ChangeLanguage } from "./change-language";
 
 export function Header() {
   const t = useTranslations("header");
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <header className="sticky top-0 h-[var(--header-height)] z-50 p-0 bg-background/60 backdrop-blur mx-2">
@@ -31,7 +29,9 @@ export function Header() {
           <span className="text-3xl font-extrabold font-mono">GymBrah</span>
         </Link>
         <div className="flex items-center gap-6">
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-2">
+            <ChangeLanguage />
+
             <Link href="/login" className="text-xs text-secondary underline">
               <OutlinedButton
                 className="text-xs h-6 bg-primary text-white"
