@@ -1,52 +1,40 @@
 import { Section } from "@/components/section";
-import { cn } from "@/lib/utils";
-import {
-  Dumbbell,
-  Users,
-  LineChart,
-  Target,
-  Trophy,
-  Flame,
-} from "lucide-react";
-import { MdAnalytics, MdBarChart, MdSportsGymnastics } from "react-icons/md";
+import { Dumbbell, Target, Trophy, Flame } from "lucide-react";
+import { MdBarChart, MdSportsGymnastics } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 const businessFeatures = [
   {
-    name: "Member Management",
-    description:
-      "Track and manage your gym members with ease. Monitor attendance, progress and engagement.",
+    name: "business_features.member_management",
+    description: "business_features.member_management_description",
     icon: <MdSportsGymnastics className="w-8 h-8 text-cyan-600" />,
   },
   {
-    name: "Performance Analytics",
-    description:
-      "Get detailed insights into your gym's performance with comprehensive analytics and reporting.",
+    name: "business_features.performance_analytics",
+    description: "business_features.performance_analytics_description",
     icon: <MdBarChart className="w-8 h-8 text-cyan-600" />,
   },
   {
-    name: "Workouts & Routines",
-    description: "Create and manage your athletes workouts and routines.",
+    name: "business_features.workouts_routines",
+    description: "business_features.workouts_routines_description",
     icon: <Dumbbell className="w-8 h-8 text-cyan-600" />,
   },
 ];
 
 const athleteFeatures = [
   {
-    name: "No more workout notes",
-    description:
-      "No more workout notes on your phone. Just log your workouts and get started.",
+    name: "athlete_features.no_more_workout_notes",
+    description: "athlete_features.no_more_workout_notes_description",
     icon: <Target className="w-8 h-8 text-cyan-600" />,
   },
   {
-    name: "Achievement Tracking",
-    description:
-      "Track your achievements and milestones. Celebrate your progress along the way.",
+    name: "athlete_features.achievement_tracking",
+    description: "athlete_features.achievement_tracking_description",
     icon: <Trophy className="w-8 h-8 text-cyan-600" />,
   },
   {
-    name: "Workout Tracking",
-    description:
-      "Log and monitor your workouts. Track sets, reps, weights and personal records.",
+    name: "athlete_features.workout_tracking",
+    description: "athlete_features.workout_tracking_description",
     icon: <Flame className="w-8 h-8 text-cyan-600" />,
   },
 ];
@@ -57,6 +45,8 @@ const FeatureCard = ({
   icon: Icon,
   index,
 }: (typeof businessFeatures)[0] & { index: number }) => {
+  const t = useTranslations();
+
   return (
     <div
       key={index}
@@ -69,9 +59,9 @@ const FeatureCard = ({
         </div>
 
         <div className="space-y-2 text-center">
-          <h3 className="font-semibold text-2xl tracking-tight">{name}</h3>
+          <h3 className="font-semibold text-2xl tracking-tight">{t(name)}</h3>
           <p className="text-sm text-muted-foreground max-w-lg leading-relaxed">
-            {description}
+            {t(description)}
           </p>
         </div>
       </div>

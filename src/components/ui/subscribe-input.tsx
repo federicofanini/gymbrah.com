@@ -2,12 +2,14 @@
 
 import { subscribeAction } from "@/actions/subscribe-action";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const t = useTranslations("subscribe-input");
 
   if (pending) {
     return (
@@ -22,20 +24,20 @@ function SubmitButton() {
       type="submit"
       className="absolute right-2 h-7 bg-primary top-2 px-4 font-medium text-sm z-10 text-primary-foreground"
     >
-      Subscribe
+      {t("button")}
     </button>
   );
 }
 
 export function SubscribeInput() {
   const [isSubmitted, setSubmitted] = useState(false);
-
+  const t = useTranslations("subscribe-input");
   return (
     <div>
       <div className="flex justify-center">
         {isSubmitted ? (
           <div className="border border-[#2C2C2C] font-sm text-primary h-11 w-[330px] flex items-center py-1 px-3 justify-between">
-            <p>Subscribed</p>
+            <p>{t("success")}</p>
 
             <svg
               width="17"
@@ -69,7 +71,7 @@ export function SubscribeInput() {
           >
             <fieldset className="relative">
               <input
-                placeholder="Join the waiting list"
+                placeholder={t("title")}
                 type="email"
                 name="email"
                 id="email"

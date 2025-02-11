@@ -1,18 +1,15 @@
 import { AuroraText } from "@/components/aurora-text";
 import { Section } from "@/components/section";
-import { siteConfig } from "@/lib/config";
 import Link from "next/link";
-import OutlinedButton from "../ui/outlined-button";
 import AvatarCircles from "../ui/avatar-circles";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { Check, GoalIcon, TargetIcon } from "lucide-react";
-import { Ripple } from "../ui/ripple";
-import FlickeringGrid from "../ui/flickering-grid";
+import { Check } from "lucide-react";
 import Image from "next/image";
 import { getUserCount } from "@/actions/user/user-count";
 import { Icons } from "../icons";
 import { SubscribeInput } from "../ui/subscribe-input";
+import { useTranslations } from "next-intl";
 
 const getAvatarUrls = unstable_cache(
   async () => {
@@ -65,13 +62,12 @@ function HeroPill() {
 }
 
 function HeroTitles() {
+  const t = useTranslations("hero");
   return (
     <div className="flex w-full flex-col overflow-hidden pt-8 text-center">
       <h1 className="text-center text-4xl font-semibold leading-tighter text-foreground sm:text-7xl tracking-tighter mb-8">
         <span className="inline-block text-balance">
-          <AuroraText className="leading-normal">
-            Build small habits to make a big difference.
-          </AuroraText>
+          <AuroraText className="leading-normal">{t("title")}</AuroraText>
         </span>
       </h1>
       <div className="flex justify-center w-full mb-8 px-4 sm:px-0">
@@ -79,7 +75,7 @@ function HeroTitles() {
           <div className="flex items-center gap-2">
             <span className="text-yellow-600">🚧</span>
             <span className="font-medium text-sm sm:text-base">
-              UNDER CONSTRUCTION
+              {t("subtitle")}
             </span>
             <span className="text-yellow-600">🚧</span>
           </div>
@@ -108,41 +104,25 @@ function HeroTitles() {
       <ul className="flex flex-col gap-2 text-muted-foreground max-w-lg mx-auto sm:text-lg sm:leading-normal text-balance">
         <li className="grid items-center gap-2 text-center w-full mb-8">
           <span className="text-center justify-center">
-            The best solution for{" "}
-            <span className="font-semibold text-cyan-600">gyms</span> and{" "}
-            <span className="font-semibold text-cyan-600">athletes 🏆</span>
+            {t("subtitle_text")}
           </span>
         </li>
 
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
-          <span>
-            Every{" "}
-            <span className="font-semibold text-primary">
-              achievement counts
-            </span>
-          </span>
+          <span>{t("achievement")}</span>
         </li>
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
-          <span>
-            Keep yourself{" "}
-            <span className="font-semibold text-primary">accountable</span>
-          </span>
+          <span>{t("accountable")}</span>
         </li>
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
-          <span>
-            Stay <span className="font-semibold text-primary">motivated</span>{" "}
-            every step of the way
-          </span>
+          <span>{t("motivated")}</span>
         </li>
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
-          <span>
-            Build{" "}
-            <span className="font-semibold text-primary">habits that last</span>
-          </span>
+          <span>{t("habits")}</span>
         </li>
       </ul>
     </div>
@@ -176,7 +156,7 @@ async function Avatars() {
     <div className="mt-4 flex flex-col items-center justify-center">
       <AvatarCircles numPeople={10} avatarUrls={avatarUrls} />
       <p className="mt-4 text-xs text-muted-foreground text-center font-mono">
-        <span className="font-semibold text-primary">Free </span>during beta.
+        <span className="font-semibold text-primary">Free during beta.</span>
       </p>
     </div>
   );

@@ -2,12 +2,12 @@
 
 import { MobileDrawer } from "@/components/mobile-drawer";
 import { siteConfig } from "@/lib/config";
-import Link from "next/link";
 import OutlinedButton from "../ui/outlined-button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Dock, Trophy } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 export function Header() {
   const t = useTranslations("header");

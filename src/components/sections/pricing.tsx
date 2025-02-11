@@ -8,6 +8,7 @@ import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -87,13 +88,55 @@ const TabsTrigger = ({
   );
 };
 
+const pricingTiers = [
+  {
+    name: "pricing.athlete.name",
+    price: { yearly: 25 },
+    description: "pricing.athlete.description",
+    features: [
+      "pricing.athlete.features.notes",
+      "pricing.athlete.features.achievements",
+      "pricing.athlete.features.progress",
+      "pricing.athlete.features.community",
+      "pricing.athlete.features.support",
+    ],
+    cta: "pricing.athlete.cta",
+  },
+  {
+    name: "pricing.business.name",
+    price: { yearly: 250 },
+    description: "pricing.business.description",
+    features: [
+      "pricing.business.features.management",
+      "pricing.business.features.analytics",
+      "pricing.business.features.workouts",
+      "pricing.business.features.website",
+      "pricing.business.features.support",
+    ],
+    cta: "pricing.business.cta",
+    popular: true,
+  },
+  {
+    name: "pricing.enterprise.name",
+    price: { yearly: 500 },
+    description: "pricing.enterprise.description",
+    features: [
+      "pricing.enterprise.features.all",
+      "pricing.enterprise.features.custom",
+    ],
+    cta: "pricing.enterprise.cta",
+  },
+];
+
 function PricingTier({
   tier,
   billingCycle,
 }: {
-  tier: (typeof siteConfig.pricing)[0];
+  tier: (typeof pricingTiers)[0];
   billingCycle: "monthly" | "yearly";
 }) {
+  const t = useTranslations();
+
   return (
     <div
       className={cn(
@@ -105,14 +148,14 @@ function PricingTier({
         <CardHeader className="border-b p-4 grid grid-rows-2 h-fit">
           <CardTitle className="flex items-center justify-between">
             <span className="text-sm font-medium text-muted-foreground">
-              {tier.name}
+              {t(tier.name)}
             </span>
             {tier.popular && (
               <Badge
                 variant="secondary"
                 className="bg-primary text-primary-foreground hover:bg-secondary-foreground"
               >
-                🔥 This is fire
+                {t("pricing.popular_badge")}
               </Badge>
             )}
           </CardTitle>
@@ -130,14 +173,15 @@ function PricingTier({
                 ease: [0.4, 0, 0.2, 1],
               }}
             >
+              {t("pricing.currency")}
               {tier.price.yearly}
               <span className="text-sm font-medium text-muted-foreground">
-                / for ever
+                {t("pricing.lifetime")}
               </span>
             </motion.div>
           </div>
           <p className="text-[15px] font-medium text-muted-foreground">
-            {tier.description}
+            {t(tier.description)}
           </p>
         </CardHeader>
 
@@ -146,7 +190,7 @@ function PricingTier({
             {tier.features.map((feature, featureIndex) => (
               <li key={featureIndex} className="flex items-center">
                 <Check className="mr-2 size-4 text-green-500" />
-                <span className="font-medium">{feature}</span>
+                <span className="font-medium">{t(feature)}</span>
               </li>
             ))}
           </ul>
@@ -161,7 +205,7 @@ function PricingTier({
               : "bg-muted text-foreground hover:bg-muted/80"
           )}
         >
-          <Link href="/login">{tier.cta}</Link>
+          <Link href="/login">{t(tier.cta)}</Link>
         </Button>
       </div>
     </div>
@@ -169,6 +213,7 @@ function PricingTier({
 }
 
 export function Pricing() {
+  const t = useTranslations();
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "yearly"
   );
@@ -178,16 +223,16 @@ export function Pricing() {
   };
 
   return (
-    <Section id="pricing" title="Pricing">
+    <Section id="pricing" title={t("pricing.section_title")}>
       <div className="border border-b-0 grid grid-rows-1">
         <div className="grid grid-rows-1 gap-y-10 p-10">
           <div className="text-center">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-balance">
-              Simple, transparent pricing.
+              {t("pricing.title")}
             </h2>
 
             <p className="mt-6 text-balance text-muted-foreground flex items-center gap-2 text-center justify-center">
-              Unlock the full potential of{" "}
+              {t("pricing.subtitle")}
               <Image
                 src="/logo/logo_black.png"
                 alt="GymBrah"
@@ -200,7 +245,7 @@ export function Pricing() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3">
-          {siteConfig.pricing.map((tier, index) => (
+          {pricingTiers.map((tier, index) => (
             <PricingTier key={index} tier={tier} billingCycle={billingCycle} />
           ))}
         </div>

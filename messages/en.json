@@ -6,5 +6,84 @@
   },
   "header": {
     "button": "Start now"
+  },
+  "hero": {
+    "title": "Build small habits to make a big difference.",
+    "subtitle": "UNDER CONSTRUCTION",
+    "follow": "Follow on:",
+    "pill": "Introducing GymBrah",
+    "subtitle_text": "The best solution for gyms and athletes 🏆",
+    "achievement": "Every achievement counts",
+    "accountable": "Keep yourself accountable",
+    "motivated": "Stay motivated every step of the way",
+    "habits": "Build habits that last",
+    "join": "Join",
+    "members": "members"
+  },
+  "business_features": {
+    "member_management": "Member Management",
+    "member_management_description": "Track and manage your gym members with ease. Monitor attendance, progress and engagement.",
+    "performance_analytics": "Performance Analytics",
+    "performance_analytics_description": "Get detailed insights into your gym's performance with comprehensive analytics and reporting.",
+    "workouts_routines": "Workouts & Routines",
+    "workouts_routines_description": "Create and manage your athletes workouts and routines."
+  },
+  "athlete_features": {
+    "no_more_workout_notes": "No more workout notes",
+    "no_more_workout_notes_description": "No more workout notes on your phone. Just log your workouts and get started.",
+    "achievement_tracking": "Achievement Tracking",
+    "achievement_tracking_description": "Track your achievements and milestones. Celebrate your progress along the way.",
+    "workout_tracking": "Workout Tracking",
+    "workout_tracking_description": "Log and monitor your workouts. Track sets, reps, weights and personal records."
+  },
+  "pricing": {
+    "title": "Simple, transparent pricing.",
+    "subtitle": "Unlock the full potential of GymBrah",
+    "section_title": "Pricing",
+    "popular_badge": "🔥 Best Deal",
+    "currency": "$",
+    "lifetime": " / lifetime",
+    "athlete": {
+      "name": "Athlete",
+      "description": "Perfect for individual athletes looking to track their fitness journey",
+      "features": {
+        "notes": "Digital workout notes",
+        "achievements": "Achievement tracking",
+        "progress": "Progress monitoring",
+        "community": "Community access",
+        "support": "Basic support"
+      },
+      "cta": "Get Started"
+    },
+    "business": {
+      "name": "Business",
+      "description": "Ideal for gyms and fitness businesses managing multiple athletes",
+      "features": {
+        "management": "Member management",
+        "analytics": "Performance analytics",
+        "workouts": "Workout planning",
+        "website": "Branded website",
+        "support": "Priority support"
+      },
+      "cta": "Level up your gym"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "description": "Custom solutions for large organizations and franchises",
+      "features": {
+        "all": "All Business features",
+        "custom": "Custom integrations"
+      },
+      "cta": "Contact us"
+    }
+  },
+  "cta": {
+    "title": "Ready to level up? Let's do this together.",
+    "button": "members joined us"
+  },
+  "subscribe-input": {
+    "title": "Join the waiting list",
+    "button": "Subscribe",
+    "success": "Subscribed"
   }
 }
