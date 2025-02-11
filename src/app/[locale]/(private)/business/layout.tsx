@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { SidebarInset } from "@/components/ui/sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -10,12 +10,9 @@ import { Header } from "@/components/private/b2b/header";
 import { Toaster } from "@/components/ui/sonner";
 import { checkBusiness } from "@/actions/business/onboarding/check-business";
 import { checkPlan } from "@/actions/business/onboarding/check-plan";
-import { redirect } from "@/i18n/routing";
-import languineConfig from "../../../../../languine.json";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }
 
 export const metadata: Metadata = {
@@ -23,37 +20,17 @@ export const metadata: Metadata = {
   description: "Gym Manager Account",
 };
 
-// Validate that the incoming `locale` parameter is valid
-export function generateStaticParams() {
-  return [...languineConfig.locale.targets, languineConfig.locale.source].map(
-    (locale) => ({ locale })
-  );
-}
-
 export default async function DashboardLayout({
   children,
-  params,
 }: DashboardLayoutProps) {
-  const { locale } = await params;
-
-  if (
-    ![...languineConfig.locale.targets, languineConfig.locale.source].includes(
-      locale
-    )
-  ) {
-    notFound();
-  }
-
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
-    redirect({ href: "/login", locale });
+    redirect("/login");
   }
 
-  const businessResponse = await checkBusiness({
-    user_id: data.user?.id ?? "",
-  });
+  const businessResponse = await checkBusiness({ user_id: data.user.id });
 
   console.log("business exists", businessResponse?.data?.data?.exists);
 
@@ -61,16 +38,16 @@ export default async function DashboardLayout({
     businessResponse?.data?.success &&
     !businessResponse?.data?.data?.exists
   ) {
-    redirect({ href: "/onboarding", locale });
+    redirect("/onboarding");
   }
 
-  const planResponse = await checkPlan({ user_id: data.user?.id ?? "" });
+  const planResponse = await checkPlan({ user_id: data.user.id });
 
   if (
     planResponse?.data?.success &&
     !planResponse?.data?.data?.hasActiveSubscription
   ) {
-    redirect({ href: "/onboarding", locale });
+    redirect("/onboarding");
   }
 
   console.log("paid plan", planResponse?.data?.data?.hasActiveSubscription);

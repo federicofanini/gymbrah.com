@@ -7,8 +7,10 @@ import OutlinedButton from "../ui/outlined-button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Dock, Trophy } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function Header() {
+  const t = useTranslations("header");
   const pathname = usePathname();
 
   return (
@@ -35,7 +37,7 @@ export function Header() {
                 className="text-xs h-6 bg-primary text-white"
                 variant="secondary"
               >
-                {siteConfig.cta}
+                {t("button")}
               </OutlinedButton>
             </Link>
           </div>

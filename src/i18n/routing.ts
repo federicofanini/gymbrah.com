@@ -1,11 +1,20 @@
-import languineConfig from "languine.json";
 import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-  locales: [...languineConfig.locale.targets, languineConfig.locale.source],
-  defaultLocale: languineConfig.locale.source,
+  locales: ["en", "it"],
+  defaultLocale: "en",
+  pathnames: {
+    "/": "/",
+    "/pathnames": {
+      en: "/pathnames",
+      it: "/pfadnamen",
+    },
+  },
 });
 
-export const { Link, redirect, usePathname, useRouter, getPathname } =
+export type Pathnames = keyof typeof routing.pathnames;
+export type Locale = (typeof routing.locales)[number];
+
+export const { Link, getPathname, redirect, usePathname, useRouter } =
   createNavigation(routing);

@@ -1,0 +1,10 @@
+{
+  "manifest": {
+    "name": "GymBrah",
+    "short_name": "GymBrah",
+    "description": "Build small habits to make a big difference."
+  },
+  "header": {
+    "button": "Start now"
+  }
+}
