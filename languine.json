@@ -6,7 +6,7 @@
   },
   "files": {
     "json": {
-      "include": ["src/messages/[locale].json"]
+      "include": ["messages/[locale].json"]
     }
   }
 }

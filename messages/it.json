@@ -2,5 +2,146 @@
   "HomePage": {
     "title": "Ciao mondo!",
     "about": "Vai alla pagina informativa"
+  },
+  "manifest": {
+    "name": "GymBrah",
+    "short_name": "GymBrah",
+    "description": "Costruisci piccole abitudini per fare una grande differenza."
+  },
+  "language": {
+    "en": "Inglese",
+    "it": "Italiano"
+  },
+  "header": {
+    "button": "Inizia ora"
+  },
+  "hero": {
+    "title": "Costruisci piccole abitudini per fare una grande differenza.",
+    "subtitle": "IN COSTRUZIONE",
+    "follow": "Segui su:",
+    "pill": "Presentazione di GymBrah",
+    "subtitle_text": "La migliore soluzione per palestre e atleti 🏆",
+    "achievement": "Ogni risultato conta",
+    "accountable": "Rimani responsabile",
+    "motivated": "Rimani motivato in ogni fase del percorso",
+    "habits": "Costruisci abitudini che durano",
+    "join": "Unisciti",
+    "members": "membri"
+  },
+  "business_features": {
+    "member_management": "Gestione dei membri",
+    "member_management_description": "Monitora e gestisci i membri della tua palestra con facilità. Controlla la presenza, i progressi e il coinvolgimento.",
+    "performance_analytics": "Analisi delle prestazioni",
+    "performance_analytics_description": "Ottieni approfondimenti dettagliati sulle prestazioni della tua palestra con analisi e report completi.",
+    "workouts_routines": "Allenamenti e Routine",
+    "workouts_routines_description": "Crea e gestisci gli allenamenti e le routine dei tuoi atleti."
+  },
+  "athlete_features": {
+    "no_more_workout_notes": "Niente più appunti sugli allenamenti",
+    "no_more_workout_notes_description": "Niente più appunti sugli allenamenti sul tuo telefono. Basta registrare i tuoi allenamenti e iniziare.",
+    "achievement_tracking": "Monitoraggio dei risultati",
+    "achievement_tracking_description": "Monitora i tuoi risultati e traguardi. Celebra i tuoi progressi lungo il percorso.",
+    "workout_tracking": "Monitoraggio degli allenamenti",
+    "workout_tracking_description": "Registra e monitora i tuoi allenamenti. Tieni traccia di serie, ripetizioni, pesi e record personali."
+  },
+  "pricing": {
+    "title": "Prezzi semplici e trasparenti.",
+    "subtitle": "Sblocca il pieno potenziale di GymBrah",
+    "section_title": "Prezzi",
+    "popular_badge": "🔥 Miglior Affare",
+    "currency": "$",
+    "lifetime": " / a vita",
+    "athlete": {
+      "name": "Atleta",
+      "description": "Perfetto per atleti individuali che desiderano monitorare il proprio percorso di fitness",
+      "features": {
+        "notes": "Appunti digitali sugli allenamenti",
+        "achievements": "Monitoraggio dei risultati",
+        "progress": "Monitoraggio dei progressi",
+        "community": "Accesso alla comunità",
+        "support": "Supporto di base"
+      },
+      "cta": "Inizia"
+    },
+    "business": {
+      "name": "Azienda",
+      "description": "Ideale per palestre e attività fitness che gestiscono più atleti",
+      "features": {
+        "management": "Gestione dei membri",
+        "analytics": "Analisi delle prestazioni",
+        "workouts": "Pianificazione degli allenamenti",
+        "website": "Sito web personalizzato",
+        "support": "Supporto prioritario"
+      },
+      "cta": "Potenzia la tua palestra"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "description": "Soluzioni personalizzate per grandi organizzazioni e franchising",
+      "features": {
+        "all": "Tutte le funzionalità aziendali",
+        "custom": "Integrazioni personalizzate"
+      },
+      "cta": "Contattaci"
+    }
+  },
+  "cta": {
+    "title": "Pronto a fare il salto di qualità? Facciamolo insieme.",
+    "button": "membri si sono uniti a noi"
+  },
+  "subscribe-input": {
+    "title": "Unisciti alla lista d'attesa",
+    "button": "Iscriviti",
+    "success": "Iscritto"
+  },
+  "private-business": {
+    "overview": "Panoramica",
+    "clients": "Clienti",
+    "stats": {
+      "total-clients": "Clienti Totali",
+      "monthly-revenue": "Entrate Mensili",
+      "active-sessions": "Sessioni Attive"
+    },
+    "clients-tab": {
+      "title": "Clienti della Palestra",
+      "subtitle": "Gestisci i tuoi clienti della palestra e i loro progressi.",
+      "search": "Cerca clienti",
+      "add-client": "Aggiungi Cliente",
+      "check-athlete": "Controlla Atleta",
+      "create-athlete": "Crea Nuovo Atleta",
+      "set-subscription": "Imposta Abbonamento"
+    },
+    "athletes-page": {
+      "title": "Atleti",
+      "subtitle": "Gestisci i tuoi atleti e i loro progressi.",
+      "search": "Cerca atleti",
+      "add-athlete": "Aggiungi Atleta",
+      "full-name": "Nome Completo",
+      "goal": "Obiettivo",
+      "gender-age": "Genere & Età",
+      "status": "Stato",
+      "actions": "Azioni",
+      "athlete-page": "Pagina Atleta"
+    },
+    "workouts-page": {
+      "title": "Allenamenti",
+      "subtitle": "Gestisci i tuoi allenamenti e routine.",
+      "search": "Cerca allenamenti",
+      "add-workout": "Aggiungi Allenamento",
+      "your-workouts": "I Tuoi Allenamenti",
+      "workout-builder": "Costruttore di Allenamenti",
+      "exercise-library": "Biblioteca Esercizi",
+      "no-workouts": "Nessun allenamento trovato.",
+      "workout-name": "Nome Allenamento",
+      "created-at": "Creato Il",
+      "exercises": "Esercizi",
+      "sets": "Serie",
+      "reps": "Ripetizioni",
+      "weight": "Peso",
+      "duration": "Durata",
+      "details": "Dettagli",
+      "exercise": "Esercizio",
+      "actions": "Azioni"
+    }
   }
 }
