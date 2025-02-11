@@ -71,6 +71,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-intersection-observer": "^9.15.1",
     "recharts": "^2.15.0",
+    "rehype-pretty-code": "^0.14.0",
+    "rehype-stringify": "^10.0.1",
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
