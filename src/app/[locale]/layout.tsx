@@ -12,6 +12,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import languineConfig from "../../../languine.json";
 import { getMessages } from "next-intl/server";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = constructMetadata({
   title: `${siteConfig.name} | ${siteConfig.description}`,
@@ -59,9 +60,11 @@ export default async function RootLayout({
           defaultTheme="light"
           enableSystem={false}
         >
-          <NextIntlClientProvider messages={messages} locale={locale}>
-            {children}
-          </NextIntlClientProvider>
+          <NuqsAdapter>
+            <NextIntlClientProvider messages={messages} locale={locale}>
+              {children}
+            </NextIntlClientProvider>
+          </NuqsAdapter>
           <TailwindIndicator />
         </ThemeProvider>
         <Toaster />

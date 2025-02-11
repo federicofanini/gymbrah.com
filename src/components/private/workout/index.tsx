@@ -5,8 +5,8 @@ import { useQueryState } from "nuqs";
 import { ExerciseTable } from "./exercise-table";
 import { WorkoutBuilder } from "./workout-builder";
 import { YourWorkouts } from "./your-workouts";
-import { AssignWorkout } from "./assign-workout";
 import { AssignedWorkout } from "./assigned-workout";
+import { useTranslations } from "next-intl";
 
 interface Exercise {
   id: string;
@@ -88,19 +88,20 @@ export function WorkoutPage({
   const [tab, setTab] = useQueryState("tab", {
     defaultValue: "your-workouts",
   });
+  const t = useTranslations("private-business.workouts-page");
 
   const tabs = [
     {
       id: "your-workouts",
-      title: "Your Workouts",
+      title: t("your-workouts"),
     },
     {
       id: "workout-builder",
-      title: "Workout Builder",
+      title: t("workout-builder"),
     },
     {
       id: "exercise-library",
-      title: "Exercise Library",
+      title: t("exercise-library"),
     },
   ];
 

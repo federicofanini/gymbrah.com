@@ -9,6 +9,7 @@ import {
   MdAttachMoney,
   MdSportsGymnastics,
 } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 export interface OverviewProps {
   clientStats: {
@@ -59,23 +60,25 @@ export const stats = [
 ];
 
 export function Overview({ clientStats }: OverviewProps) {
+  const t = useTranslations("private-business");
+
   const stats = [
     {
-      title: "Total Clients",
+      title: t("stats.total-clients"),
       value: clientStats.totalClients.toString(),
       change: `${clientStats.percentageChange}%`,
       isPositive: clientStats.percentageChange >= 0,
       icon: MdSportsGymnastics,
     },
     {
-      title: "Monthly Revenue",
+      title: t("stats.monthly-revenue"),
       value: clientStats.monthlyRevenue.value.toLocaleString(),
       change: `${clientStats.monthlyRevenue.percentageChange}%`,
       isPositive: clientStats.monthlyRevenue.percentageChange >= 0,
       icon: MdAttachMoney,
     },
     {
-      title: "Active Sessions",
+      title: t("stats.active-sessions"),
       value: clientStats.activeSessions.value.toLocaleString(),
       change: `${clientStats.activeSessions.percentageChange}%`,
       isPositive: clientStats.activeSessions.percentageChange >= 0,

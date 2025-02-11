@@ -9,17 +9,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {
-  UserIcon,
-  TrashIcon,
-  XIcon,
-  CheckIcon,
-  SearchIcon,
-} from "lucide-react";
+import { UserIcon, XIcon, CheckIcon, SearchIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 interface Athlete {
   id: string;
@@ -35,6 +30,7 @@ interface AthletesProps {
 
 export function Athletes({ athletes: initialAthletes }: AthletesProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const t = useTranslations("private-business.athletes-page");
 
   const filteredAthletes = initialAthletes.filter((athlete) => {
     const searchLower = searchQuery.toLowerCase();
@@ -49,15 +45,15 @@ export function Athletes({ athletes: initialAthletes }: AthletesProps) {
       <div className="w-full border border-border rounded-lg">
         <div className="p-3 md:p-6 flex flex-col md:flex-row md:justify-between md:items-center border-b gap-3 md:gap-0">
           <div className="space-y-1">
-            <h2 className="text-base md:text-lg font-medium">Athletes</h2>
+            <h2 className="text-base md:text-lg font-medium">{t("title")}</h2>
             <p className="text-xs md:text-sm text-muted-foreground">
-              Manage your athletes and their training goals
+              {t("subtitle")}
             </p>
           </div>
           <div className="relative w-full md:max-w-sm">
             <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search athletes..."
+              placeholder={t("search")}
               className="pl-8 w-full md:w-[300px]"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -70,19 +66,19 @@ export function Athletes({ athletes: initialAthletes }: AthletesProps) {
             <TableHeader>
               <TableRow>
                 <TableHead className="min-w-[100px] md:min-w-[120px]">
-                  Full Name
+                  {t("full-name")}
                 </TableHead>
                 <TableHead className="hidden md:table-cell min-w-[100px]">
-                  Goal
+                  {t("goal")}
                 </TableHead>
                 <TableHead className="hidden md:table-cell min-w-[100px]">
-                  Gender & Age
+                  {t("gender-age")}
                 </TableHead>
                 <TableHead className="min-w-[80px] md:min-w-[100px]">
-                  Status
+                  {t("status")}
                 </TableHead>
                 <TableHead className="text-right min-w-[100px] md:min-w-[160px]">
-                  Actions
+                  {t("actions")}
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -134,7 +130,7 @@ export function Athletes({ athletes: initialAthletes }: AthletesProps) {
                     >
                       <Link href={`/business/athletes/${athlete.id}`}>
                         <UserIcon className="mr-2 size-4" />
-                        Athlete Page
+                        {t("athlete-page")}
                       </Link>
                     </Button>
                     {/*<Button

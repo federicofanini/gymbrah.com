@@ -27,8 +27,11 @@ import {
   associateClientAthlete,
   createClientSubscription,
 } from "@/actions/business/client/add-client";
+import { useTranslations } from "next-intl";
 
 export function AddClientDialog() {
+  const t = useTranslations("private-business.clients-tab");
+
   const [step, setStep] = useState(1);
   const [athleteId, setAthleteId] = useState<string>("");
   const [clientAthleteId, setClientAthleteId] = useState<string>("");
@@ -149,16 +152,16 @@ export function AddClientDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default">Add New Client</Button>
+        <Button variant="default">{t("add-client")}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
             {step === 1
-              ? "Check Athlete"
+              ? t("check-athlete")
               : step === 2
-              ? "Create New Athlete"
-              : "Set Subscription"}
+              ? t("create-athlete")
+              : t("set-subscription")}
           </DialogTitle>
         </DialogHeader>
 

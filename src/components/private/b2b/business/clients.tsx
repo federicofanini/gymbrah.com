@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { AddClientDialog } from "./add-client";
+import { useTranslations } from "next-intl";
 
 interface Client {
   id: string;
@@ -37,6 +38,8 @@ interface ClientsProps {
 }
 
 export function Clients({ clients, totalClients = 0 }: ClientsProps) {
+  const t = useTranslations("private-business.clients-tab");
+
   const [searchQuery, setSearchQuery] = useQueryState("search", {
     defaultValue: "",
   });
@@ -82,10 +85,10 @@ export function Clients({ clients, totalClients = 0 }: ClientsProps) {
         <div className="p-3 md:p-6 flex flex-col md:flex-row md:justify-between md:items-center border-b gap-3 md:gap-0">
           <div className="space-y-1">
             <h2 className="text-base md:text-lg font-medium">
-              Gym Clients - {totalClients}
+              {t("title")} - {totalClients}
             </h2>
             <p className="text-xs md:text-sm text-muted-foreground">
-              Manage your gym members and their subscriptions
+              {t("subtitle")}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">

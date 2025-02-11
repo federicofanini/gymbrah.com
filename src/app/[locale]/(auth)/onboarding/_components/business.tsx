@@ -10,12 +10,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { redirect } from "@/i18n/routing";
 
 export default function OnboardingPage() {
   const [step, setStep] = useState(1);
-  const router = useRouter();
 
   // Business Form State
   const [businessForm, setBusinessForm] = useState({
@@ -68,7 +67,7 @@ export default function OnboardingPage() {
   const { execute: executeCreateUser } = useAction(saveUser, {
     onSuccess: (response) => {
       if (response?.data) {
-        router.push("/business");
+        redirect({ href: "/business", locale: "en" });
       } else {
         toast.error("Failed to create user");
       }

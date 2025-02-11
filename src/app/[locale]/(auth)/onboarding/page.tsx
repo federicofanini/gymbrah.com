@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { Link, redirect } from "@/i18n/routing";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Onboarding() {
@@ -10,7 +9,7 @@ export default async function Onboarding() {
   } = await supabase.auth.getSession();
 
   if (!session) {
-    redirect("/login");
+    redirect({ href: "/login", locale: "en" });
   }
 
   return (

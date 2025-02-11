@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQueryState } from "nuqs";
 import { Overview } from "./overview";
 import { Clients } from "./clients";
+import { useTranslations } from "next-intl";
 
 export interface BusinessPageProps {
   clientStats: {
@@ -33,14 +34,16 @@ export function BusinessPage({ clientStats, clients }: BusinessPageProps) {
     defaultValue: "overview",
   });
 
+  const t = useTranslations("private-business");
+
   const tabs = [
     {
       id: "overview",
-      title: "Overview", // TODO: translate
+      title: t("overview"),
     },
     {
       id: "clients",
-      title: "Clients", // TODO: translate
+      title: t("clients"),
     },
   ];
 

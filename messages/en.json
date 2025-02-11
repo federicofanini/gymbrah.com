@@ -85,5 +85,55 @@
     "title": "Join the waiting list",
     "button": "Subscribe",
     "success": "Subscribed"
+  },
+  "private-business": {
+    "overview": "Overview",
+    "clients": "Clients",
+    "stats": {
+      "total-clients": "Total Clients",
+      "monthly-revenue": "Monthly Revenue",
+      "active-sessions": "Active Sessions"
+    },
+    "clients-tab": {
+      "title": "Gym Clients",
+      "subtitle": "Manage your gym clients and their progress.",
+      "search": "Search clients",
+      "add-client": "Add Client",
+      "check-athlete": "Check Athlete",
+      "create-athlete": "Create New Athlete",
+      "set-subscription": "Set Subscription"
+    },
+    "athletes-page": {
+      "title": "Athletes",
+      "subtitle": "Manage your athletes and their progress.",
+      "search": "Search athletes",
+      "add-athlete": "Add Athlete",
+      "full-name": "Full Name",
+      "goal": "Goal",
+      "gender-age": "Gender & Age",
+      "status": "Status",
+      "actions": "Actions",
+      "athlete-page": "Athlete Page"
+    },
+    "workouts-page": {
+      "title": "Workouts",
+      "subtitle": "Manage your workouts and routines.",
+      "search": "Search workouts",
+      "add-workout": "Add Workout",
+      "your-workouts": "Your Workouts",
+      "workout-builder": "Workout Builder",
+      "exercise-library": "Exercise Library",
+      "no-workouts": "No workouts found.",
+      "workout-name": "Workout Name",
+      "created-at": "Created At",
+      "exercises": "Exercises",
+      "sets": "Sets",
+      "reps": "Reps",
+      "weight": "Weight",
+      "duration": "Duration",
+      "details": "Details",
+      "exercise": "Exercise",
+      "actions": "Actions"
+    }
   }
 }

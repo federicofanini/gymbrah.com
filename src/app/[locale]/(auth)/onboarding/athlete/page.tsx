@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { redirect } from "@/i18n/routing";
 import { Athlete } from "../_components/athlete";
 import { Cookies } from "@/utils/constants";
 import { prisma } from "@/lib/db";
@@ -14,7 +14,7 @@ export default async function OnboardingAthletePage() {
   } = await supabase.auth.getSession();
 
   if (!session) {
-    redirect("/login");
+    redirect({ href: "/login", locale: "en" });
   }
 
   const cookieStore = await cookies();
@@ -34,18 +34,18 @@ export default async function OnboardingAthletePage() {
           athlete_code: athleteCode,
         },
         data: {
-          user_id: session.user.id,
-          ...(athlete.email !== session.user.email && {
-            email: session.user.email,
+          user_id: session?.user.id,
+          ...(athlete.email !== session?.user.email && {
+            email: session?.user.email,
           }),
         },
       });
 
       // Save user data
       const result = await saveUser({
-        email: session.user.email ?? athlete.email,
+        email: session?.user.email ?? athlete.email,
         full_name: `${athlete.name} ${athlete.surname}`,
-        avatar_url: session.user.user_metadata.avatar_url,
+        avatar_url: session?.user.user_metadata.avatar_url,
       });
 
       if (!result?.data?.success) {
@@ -53,25 +53,25 @@ export default async function OnboardingAthletePage() {
       }
 
       // Redirect to athlete dashboard since onboarding is complete
-      redirect("/athlete");
+      redirect({ href: "/athlete", locale: "en" });
     }
   } else {
     // Save user data first
     const result = await prisma.user.upsert({
       where: {
-        id: session.user.id,
+        id: session?.user.id,
       },
       create: {
-        id: session.user.id,
-        email: session.user.email ?? "",
-        full_name: session.user.user_metadata.full_name ?? "",
-        avatar_url: session.user.user_metadata.avatar_url,
+        id: session?.user.id,
+        email: session?.user.email ?? "",
+        full_name: session?.user.user_metadata.full_name ?? "",
+        avatar_url: session?.user.user_metadata.avatar_url,
         paid: false,
       },
       update: {
-        email: session.user.email ?? "",
-        full_name: session.user.user_metadata.full_name ?? "",
-        avatar_url: session.user.user_metadata.avatar_url,
+        email: session?.user.email ?? "",
+        full_name: session?.user.user_metadata.full_name ?? "",
+        avatar_url: session?.user.user_metadata.avatar_url,
       },
     });
 
@@ -102,7 +102,7 @@ export default async function OnboardingAthletePage() {
 
     const existingAthlete = await prisma.athlete.findFirst({
       where: {
-        user_id: session.user.id,
+        user_id: session?.user.id,
       },
     });
 
@@ -110,8 +110,8 @@ export default async function OnboardingAthletePage() {
       await prisma.athlete.create({
         data: {
           athlete_code: newAthleteCode,
-          user_id: session.user.id,
-          email: session.user.email ?? "",
+          user_id: session?.user.id,
+          email: session?.user.email ?? "",
           name: "", // Will be filled during onboarding
           surname: "", // Will be filled during onboarding
           birth_date: new Date(), // Will be updated during onboarding

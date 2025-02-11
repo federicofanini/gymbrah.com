@@ -18,8 +18,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/routing";
 import { LogoIcon } from "@/components/logo";
 import { sidebarItems } from "./sidebar-items";
 

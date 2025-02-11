@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { InfoIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Exercise {
   id: string;
@@ -56,14 +57,16 @@ interface YourWorkoutsProps {
 }
 
 export function YourWorkouts({ workouts }: YourWorkoutsProps) {
+  const t = useTranslations("private-business.workouts-page");
+
   if (!workouts.success || !workouts.data?.length) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Your Workouts</CardTitle>
+          <CardTitle>{t("your-workouts")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">No workouts found.</p>
+          <p className="text-muted-foreground">{t("no-workouts")}</p>
         </CardContent>
       </Card>
     );
@@ -73,17 +76,17 @@ export function YourWorkouts({ workouts }: YourWorkoutsProps) {
     <div className="space-y-8">
       <Card>
         <CardHeader>
-          <CardTitle>Your Workouts</CardTitle>
+          <CardTitle>{t("your-workouts")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Workout Name</TableHead>
-                  <TableHead>Created</TableHead>
-                  <TableHead>Exercises</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>{t("workout-name")}</TableHead>
+                  <TableHead>{t("created-at")}</TableHead>
+                  <TableHead>{t("exercises")}</TableHead>
+                  <TableHead className="text-right">{t("actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -105,7 +108,7 @@ export function YourWorkouts({ workouts }: YourWorkoutsProps) {
                         <DialogTrigger asChild>
                           <Button variant="outline" size="sm">
                             <InfoIcon className="h-4 w-4 mr-2" />
-                            Details
+                            {t("details")}
                           </Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-2xl">
@@ -116,11 +119,11 @@ export function YourWorkouts({ workouts }: YourWorkoutsProps) {
                             <Table>
                               <TableHeader>
                                 <TableRow>
-                                  <TableHead>Exercise</TableHead>
-                                  <TableHead>Sets</TableHead>
-                                  <TableHead>Reps</TableHead>
-                                  <TableHead>Weight</TableHead>
-                                  <TableHead>Duration</TableHead>
+                                  <TableHead>{t("exercise")}</TableHead>
+                                  <TableHead>{t("sets")}</TableHead>
+                                  <TableHead>{t("reps")}</TableHead>
+                                  <TableHead>{t("weight")}</TableHead>
+                                  <TableHead>{t("duration")}</TableHead>
                                 </TableRow>
                               </TableHeader>
                               <TableBody>
