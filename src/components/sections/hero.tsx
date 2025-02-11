@@ -1,9 +1,9 @@
+"use client";
+
 import { AuroraText } from "@/components/aurora-text";
 import { Section } from "@/components/section";
 import Link from "next/link";
 import AvatarCircles from "../ui/avatar-circles";
-import { unstable_cache } from "next/cache";
-import { prisma } from "@/lib/db";
 import { Check } from "lucide-react";
 import Image from "next/image";
 import { getUserCount } from "@/actions/user/user-count";
@@ -11,31 +11,54 @@ import { Icons } from "../icons";
 import { SubscribeInput } from "../ui/subscribe-input";
 import { useTranslations } from "next-intl";
 
-const getAvatarUrls = unstable_cache(
-  async () => {
-    const users = await prisma.user.findMany({
-      select: {
-        avatar_url: true,
-      },
-      where: {
-        avatar_url: {
-          not: null,
-        },
-      },
-      take: 10,
-      orderBy: {
-        created_at: "desc",
-      },
-    });
+interface Avatar {
+  imageUrl: string;
+  profileUrl: string;
+}
 
-    return users.map((user) => ({
-      imageUrl: user.avatar_url as string,
-      profileUrl: "#", // Added profileUrl to match Avatar type
-    }));
+// Mock avatar URLs matching the structure from avatars-urls.ts
+const mockAvatarUrls: Avatar[] = [
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/1?v=4",
+    profileUrl: "#",
   },
-  ["avatar-urls"],
-  { revalidate: 3600 * 3 } // Cache for 3 hours
-);
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/2?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/3?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/4?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/5?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/6?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/7?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/8?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/9?v=4",
+    profileUrl: "#",
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/10?v=4",
+    profileUrl: "#",
+  },
+];
 
 function HeroPill() {
   return (
@@ -129,10 +152,7 @@ function HeroTitles() {
   );
 }
 
-async function HeroCTA() {
-  const response = await getUserCount();
-  const count = response?.data?.data;
-
+function HeroCTA() {
   return (
     <div className="relative mt-6 w-full flex justify-center">
       <SubscribeInput />
@@ -150,8 +170,7 @@ async function HeroCTA() {
   );
 }
 
-async function Avatars() {
-  const avatarUrls = await getAvatarUrls();
+function Avatars({ avatarUrls }: { avatarUrls: Avatar[] }) {
   return (
     <div className="mt-4 flex flex-col items-center justify-center">
       <AvatarCircles numPeople={10} avatarUrls={avatarUrls} />
@@ -184,14 +203,18 @@ const AppScreenshot = () => {
   );
 };
 
-export async function Hero() {
+export function Hero({
+  avatarUrls = mockAvatarUrls,
+}: {
+  avatarUrls?: Avatar[];
+}) {
   return (
     <Section id="hero">
       <div className="relative w-full p-6 border-x overflow-hidden flex justify-center items-center">
         <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
           <HeroTitles />
           <HeroCTA />
-          <Avatars />
+          <Avatars avatarUrls={avatarUrls} />
           <AppScreenshot />
         </div>
       </div>
