@@ -1,0 +1,5 @@
+version: 1
+files:
+  messages/en.json:
+    HomePage.title: 86fb269d190d2c85f6e0468ceca42a20
+    HomePage.about: 5a5e194a54db4707f444a2efddc80b5b

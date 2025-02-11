@@ -1,0 +1,16 @@
+{
+  "projectId": "",
+  "locale": {
+    "source": "en",
+    "targets": [
+      "it"
+    ]
+  },
+  "files": {
+    "json": {
+      "include": [
+        "messages/[locale].json"
+      ]
+    }
+  }
+}
