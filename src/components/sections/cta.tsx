@@ -1,12 +1,12 @@
+"use client";
+
 import { Section } from "@/components/section";
 import OutlinedButton from "../ui/outlined-button";
-import Link from "next/link";
-import { getUserCount } from "@/actions/user/user-count";
-import { getTranslations } from "next-intl/server";
-export async function CTA() {
-  const response = await getUserCount();
-  const count = response?.data?.data;
-  const t = await getTranslations("cta");
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
+
+export function CTA({ count }: { count: number }) {
+  const t = useTranslations("cta");
 
   return (
     <Section id="cta">

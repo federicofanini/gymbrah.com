@@ -1,3 +1,4 @@
+import { getUserCount } from "@/actions/user/user-count";
 import { CTA } from "@/components/sections/cta";
 import { DemoVideo } from "@/components/sections/demo-video";
 import { Features } from "@/components/sections/features";
@@ -15,6 +16,8 @@ export function generateStaticParams() {
 }
 
 export default async function Home() {
+  const response = await getUserCount();
+  const count = response?.data?.data;
   return (
     <main>
       <Header />
@@ -24,7 +27,7 @@ export default async function Home() {
       <Pricing />
       {/* <Testimonials />
       <Statistics /> */}
-      <CTA />
+      <CTA count={count} />
       <Footer />
     </main>
   );

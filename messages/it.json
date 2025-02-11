@@ -29,6 +29,8 @@
     "members": "membri"
   },
   "business_features": {
+    "title": "Per Palestre",
+    "subtitle": "Stesso business, palestra più intelligente",
     "member_management": "Gestione dei membri",
     "member_management_description": "Monitora e gestisci i membri della tua palestra con facilità. Controlla la presenza, i progressi e il coinvolgimento.",
     "performance_analytics": "Analisi delle prestazioni",
@@ -37,6 +39,8 @@
     "workouts_routines_description": "Crea e gestisci gli allenamenti e le routine dei tuoi atleti."
   },
   "athlete_features": {
+    "title": "Per Atleti",
+    "subtitle": "Migliori allenamenti, migliori risultati",
     "no_more_workout_notes": "Niente più appunti sugli allenamenti",
     "no_more_workout_notes_description": "Niente più appunti sugli allenamenti sul tuo telefono. Basta registrare i tuoi allenamenti e iniziare.",
     "achievement_tracking": "Monitoraggio dei risultati",
@@ -86,8 +90,8 @@
     }
   },
   "cta": {
-    "title": "Pronto a fare il salto di qualità? Facciamolo insieme.",
-    "button": "membri si sono uniti a noi"
+    "title": "Pronto a fare il salto di qualità? ",
+    "button": "membri sono con noi"
   },
   "subscribe-input": {
     "title": "Unisciti alla lista d'attesa",

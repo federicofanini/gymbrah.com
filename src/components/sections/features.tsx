@@ -1,3 +1,5 @@
+"use client";
+
 import { Section } from "@/components/section";
 import { Dumbbell, Target, Trophy, Flame } from "lucide-react";
 import { MdBarChart, MdSportsGymnastics } from "react-icons/md";
@@ -70,12 +72,13 @@ const FeatureCard = ({
 };
 
 export function Features() {
+  const t = useTranslations();
   return (
     <>
       <Section
         id="business"
-        title="For Gyms"
-        subtitle="Same business, smarter gym"
+        title={t("business_features.title")}
+        subtitle={t("business_features.subtitle")}
       >
         <div className="gap-4 mx-auto p-6 border-x border-t grid sm:grid-cols-3">
           {businessFeatures.map(({ name, description, icon: Icon }, index) => (
@@ -92,8 +95,8 @@ export function Features() {
 
       <Section
         id="athletes"
-        title="For Athletes"
-        subtitle="Best workouts, better results"
+        title={t("athlete_features.title")}
+        subtitle={t("athlete_features.subtitle")}
       >
         <div className="gap-4 mx-auto p-6 border-x border-t grid sm:grid-cols-3">
           {athleteFeatures.map(({ name, description, icon: Icon }, index) => (

@@ -46,18 +46,6 @@ const mockAvatarUrls: Avatar[] = [
     imageUrl: "https://avatars.githubusercontent.com/u/7?v=4",
     profileUrl: "#",
   },
-  {
-    imageUrl: "https://avatars.githubusercontent.com/u/8?v=4",
-    profileUrl: "#",
-  },
-  {
-    imageUrl: "https://avatars.githubusercontent.com/u/9?v=4",
-    profileUrl: "#",
-  },
-  {
-    imageUrl: "https://avatars.githubusercontent.com/u/10?v=4",
-    profileUrl: "#",
-  },
 ];
 
 function HeroPill() {

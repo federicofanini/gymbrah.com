@@ -9,10 +9,9 @@ import {
 } from "@/components/ui/drawer";
 import { siteConfig } from "@/lib/config";
 import Image from "next/image";
-import Link from "next/link";
-import { IoMenuSharp, IoTrophyOutline } from "react-icons/io5";
+import { Link } from "@/i18n/routing";
+import { IoMenuSharp } from "react-icons/io5";
 import OutlinedButton from "./ui/outlined-button";
-import { Dock, Trophy } from "lucide-react";
 
 export function MobileDrawer() {
   return (
@@ -29,7 +28,7 @@ export function MobileDrawer() {
             className="flex items-center justify-center"
           >
             <Image
-              src="/logo.svg"
+              src="/logo/logo_black.svg"
               alt="brand-logo"
               width={100}
               height={100}
@@ -41,7 +40,7 @@ export function MobileDrawer() {
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter className="flex flex-col gap-4 items-center">
-          <Link
+          {/*<Link
             href="/leaderboard"
             className="text-sm hover:text-primary font-mono mb-8 transition-colors flex items-center gap-2"
           >
@@ -54,12 +53,17 @@ export function MobileDrawer() {
           >
             <Dock className="size-4" />
             Mobile app
-          </Link>
+          </Link>*/}
           <Link
             href="/login"
             className="text-sm text-secondary underline mx-auto"
           >
-            <OutlinedButton>{siteConfig.hero.cta}</OutlinedButton>
+            <OutlinedButton
+              variant="secondary"
+              className="text-sm h-10 bg-primary text-white"
+            >
+              {siteConfig.hero.cta}
+            </OutlinedButton>
           </Link>
         </DrawerFooter>
       </DrawerContent>

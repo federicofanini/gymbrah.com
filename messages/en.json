@@ -25,6 +25,8 @@
     "members": "members"
   },
   "business_features": {
+    "title": "For Gyms",
+    "subtitle": "Same business, smarter gym",
     "member_management": "Member Management",
     "member_management_description": "Track and manage your gym members with ease. Monitor attendance, progress and engagement.",
     "performance_analytics": "Performance Analytics",
@@ -33,6 +35,8 @@
     "workouts_routines_description": "Create and manage your athletes workouts and routines."
   },
   "athlete_features": {
+    "title": "For Athletes",
+    "subtitle": "Best workouts, better results",
     "no_more_workout_notes": "No more workout notes",
     "no_more_workout_notes_description": "No more workout notes on your phone. Just log your workouts and get started.",
     "achievement_tracking": "Achievement Tracking",
