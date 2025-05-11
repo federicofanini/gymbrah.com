@@ -39,7 +39,6 @@ export default async function Home() {
 
       <div className="space-y-16 max-w-screen-xl mx-auto">
         <Hero gyms={20} pts={1} members={subscriberCount} />
-        <Features />
         <ServicesBusiness subscriberCount={subscriberCount} />
         <ServicesAthletes subscriberCount={subscriberCount} />
         <UseCases subscriberCount={subscriberCount} />
