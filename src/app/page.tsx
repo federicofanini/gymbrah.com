@@ -41,11 +41,11 @@ export default async function Home() {
         <Hero gyms={20} pts={1} members={subscriberCount} />
         <ServicesBusiness subscriberCount={subscriberCount} />
         <ServicesAthletes subscriberCount={subscriberCount} />
-        <UseCases subscriberCount={subscriberCount} />
-        <WhoAmI />
         <Testimonials />
+        <UseCases subscriberCount={subscriberCount} />
         <Pricing />
         <FAQ />
+        <WhoAmI />
         <Community />
 
         <CTA subscriberCount={subscriberCount} />

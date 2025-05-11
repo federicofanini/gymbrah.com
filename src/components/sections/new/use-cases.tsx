@@ -4,6 +4,7 @@ import { Section } from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import OutlinedButton from "@/components/ui/outlined-button";
+import { paths } from "@/lib/path";
 import { CheckCheck } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -11,57 +12,58 @@ import { MdPeople, MdTrendingUp, MdTimer, MdAutoGraph } from "react-icons/md";
 
 const useCases = [
   {
-    id: "personal-trainers",
-    title: "Personal Trainers",
+    id: "gym-owners",
+    title: "Gym Owners",
     description:
-      "Scale your coaching business and deliver better results to clients.",
+      "Expand your reach and streamline your business operations with our comprehensive platform.",
     benefits: [
-      "Automate client management and scheduling",
-      "Create custom workout plans in minutes",
-      "Track client progress with detailed analytics",
-      "Increase client retention with engagement features",
+      "Create compelling business profiles",
+      "Manage bookings and payments",
+      "Track analytics and performance",
+      "Handle reviews and reputation",
     ],
-    impact: "3x more clients managed with less effort",
+    impact: "Increase visibility and bookings by 3x",
     icon: <MdPeople className="w-8 h-8 text-violet-600" />,
   },
   {
-    id: "athletes",
-    title: "Athletes",
+    id: "personal-trainers",
+    title: "Personal Trainers",
     description:
-      "Take control of your training and maximize performance gains.",
+      "Showcase your expertise and connect with potential clients in your area.",
     benefits: [
-      "Follow structured workout programs",
-      "Track performance metrics over time",
-      "Get real-time form feedback",
-      "Connect with training partners",
+      "Build professional profiles",
+      "Manage class schedules",
+      "Process payments securely",
+      "Grow your client base",
     ],
-    impact: "40% faster progress towards goals",
+    impact: "Reach 5x more potential clients",
     icon: <MdTrendingUp className="w-8 h-8 text-violet-600" />,
   },
   {
-    id: "busy-professionals",
-    title: "Busy Professionals",
-    description: "Fit effective workouts into your packed schedule.",
+    id: "fitness-seekers",
+    title: "Fitness Seekers",
+    description:
+      "Find the perfect gym or trainer that matches your goals and preferences.",
     benefits: [
-      "Quick, efficient workout templates",
-      "Flexible scheduling options",
-      "Progress tracking on the go",
-      "AI-powered workout adjustments",
+      "Smart location-based search",
+      "Filter by services and categories",
+      "Compare pricing and reviews",
+      "Book and connect instantly",
     ],
-    impact: "Save 5+ hours per week on planning",
+    impact: "Save 5+ hours finding the right fit",
     icon: <MdTimer className="w-8 h-8 text-violet-600" />,
   },
   {
-    id: "fitness-enthusiasts",
-    title: "Fitness Enthusiasts",
-    description: "Level up your training with data-driven insights.",
+    id: "fitness-studios",
+    title: "Fitness Studios",
+    description: "Streamline your studio operations and attract more members.",
     benefits: [
-      "Advanced performance analytics",
-      "Personalized training recommendations",
-      "Community challenges and support",
-      "Comprehensive progress tracking",
+      "Manage class schedules",
+      "Handle member bookings",
+      "Process payments online",
+      "Build community engagement",
     ],
-    impact: "2x faster strength gains",
+    impact: "Increase class bookings by 40%",
     icon: <MdAutoGraph className="w-8 h-8 text-violet-600" />,
   },
 ];
@@ -135,7 +137,7 @@ export function UseCases({ subscriberCount }: { subscriberCount: number }) {
             <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-violet-100 to-violet-50 border shadow-sm">
               <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] bg-grid-violet-500/[0.2]" />
               <div className="relative h-full flex items-center justify-center p-8">
-                <div className="text-center space-y-4">
+                <div className="text-center space-y-6">
                   <h3 className="text-2xl font-bold text-violet-900">
                     Ready to transform?
                   </h3>
@@ -143,7 +145,7 @@ export function UseCases({ subscriberCount }: { subscriberCount: number }) {
                     Join thousands of others who have already revolutionized
                     their fitness journey with GymBrah.
                   </p>
-                  <Link href="/access">
+                  <Link href={paths.business.dashboard} className="block mt-8">
                     <OutlinedButton
                       variant="secondary"
                       className="bg-violet-600 hover:bg-violet-700 text-white"
