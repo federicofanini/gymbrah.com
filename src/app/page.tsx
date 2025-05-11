@@ -27,12 +27,18 @@ export default async function Home() {
     <Loader2 className="w-4 h-4 animate-spin" />
   );
 
+  const githubResponse = await fetch(
+    "https://api.github.com/repos/federicofanini/gymbrah.com"
+  );
+  const githubData = await githubResponse.json();
+  const starCount = githubData.stargazers_count;
+
   return (
     <main>
       <Header />
 
       <div className="space-y-16 max-w-screen-xl mx-auto">
-        <Hero subscriberCount={subscriberCount} />
+        <Hero gyms={20} pts={1} members={subscriberCount} />
         <Features />
         <ServicesBusiness subscriberCount={subscriberCount} />
         <ServicesAthletes subscriberCount={subscriberCount} />
