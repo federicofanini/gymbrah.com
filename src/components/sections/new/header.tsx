@@ -34,8 +34,8 @@ export function Header() {
       label: "1,300+ Exercises",
       isSpecial: true,
     },
-    { href: "#gyms", label: "Gyms" },
-    { href: "#pt", label: "PTs" },
+    { href: "/gyms", label: "Gyms" },
+    { href: "/pts", label: "PTs" },
     { href: "#pricing", label: "Pricing" },
     {
       component: <SignInButton />,
