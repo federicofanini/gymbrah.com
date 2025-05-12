@@ -5,7 +5,9 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Loader2 } from "lucide-react";
+import { Loader2, CheckCheck } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const revalidate = 3600; // revalidate every hour
 
@@ -23,104 +25,135 @@ export default async function ComingSoon() {
     ? testerCountsResponse.data.athlete.spotsLeft
     : 0;
 
-  console.log("testerCountsResponse", testerCountsResponse);
   const testerBusinessCount = testerCountsResponse.success
     ? testerCountsResponse.data.business.spotsLeft
     : 0;
 
   return (
     <div className="inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4 py-8">
-      <div className="flex flex-col items-center gap-6 w-full max-w-[320px] sm:max-w-lg text-center">
+      <div className="flex flex-col items-center gap-6 w-full max-w-4xl text-center">
         <h2 className="text-2xl sm:text-3xl font-bold font-mono">
-          FREE Private Beta Access
+          Join GymBrah Beta
         </h2>
-        <p className="text-muted-foreground text-base sm:text-lg">
-          Working hard to bring you the best fitness habits experience.
-          {testerAthleteCount > 0 || testerBusinessCount > 0 ? (
-            <>
-              <br />
-              Join our private beta or get on the waitlist for early access.
-            </>
-          ) : (
-            <>
-              <br />
-              Join our waitlist to get early access and updates.
-            </>
-          )}
+        <p className="text-muted-foreground text-base sm:text-lg max-w-2xl">
+          Be among the first to experience the future of fitness. Choose your
+          path and join our growing community.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
-          <div className="flex flex-col items-center p-6 rounded-lg border border-border bg-card">
-            <h3 className="text-lg font-semibold mb-2">Fitness Creator</h3>
-            <div className="text-3xl font-bold text-primary mb-1">
-              {testerBusinessCount}
-            </div>
-            <p className="text-sm text-muted-foreground mb-4">
-              spots remaining
-            </p>
-            <Button
-              asChild
-              className="w-full inline-flex items-center justify-center gap-2"
-              disabled={testerBusinessCount === 0}
-            >
-              <Link href="https://coach.gymbrah.com">
-                <Image
-                  src="/logo/logo_white.svg"
-                  alt="Logo"
-                  width={16}
-                  height={16}
-                  className="sm:w-5 sm:h-5"
-                />
-                <span>
-                  {testerBusinessCount === 0
-                    ? "Join Waitlist"
-                    : "Join as Business"}
-                </span>
-              </Link>
-            </Button>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+          <Card className="border-2 border-yellow-200 bg-yellow-50/50">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Athletes</span>
+                <Badge className="bg-yellow-500/20 text-yellow-700">
+                  {testerAthleteCount} spots left
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-2 text-left">
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-yellow-600" />
+                  <span>Smart location-based search</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-yellow-600" />
+                  <span>Category & service filtering</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-yellow-600" />
+                  <span>View pricing & contact details</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-yellow-600" />
+                  <span>Save favorite gyms & trainers</span>
+                </li>
+              </ul>
+              <Button
+                asChild
+                className="w-full bg-yellow-600 hover:bg-yellow-700 text-white"
+                disabled={testerAthleteCount === 0}
+              >
+                <Link href="https://athlete.gymbrah.com">
+                  <Image
+                    src="/logo/logo_white.svg"
+                    alt="Logo"
+                    width={16}
+                    height={16}
+                    className="sm:w-5 sm:h-5"
+                  />
+                  <span>
+                    {testerAthleteCount === 0
+                      ? "Join Waitlist"
+                      : "Join as Athlete"}
+                  </span>
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
 
-          <div className="flex flex-col items-center p-6 rounded-lg border border-border bg-card">
-            <h3 className="text-lg font-semibold mb-2">Athlete</h3>
-            <div className="text-3xl font-bold text-primary mb-1">
-              {testerAthleteCount}
-            </div>
-            <p className="text-sm text-muted-foreground mb-4">
-              spots remaining
-            </p>
-            <Button
-              asChild
-              className="w-full inline-flex items-center justify-center gap-2"
-              disabled={testerAthleteCount === 0}
-            >
-              <Link href="https://athlete.gymbrah.com">
-                <Image
-                  src="/logo/logo_white.svg"
-                  alt="Logo"
-                  width={16}
-                  height={16}
-                  className="sm:w-5 sm:h-5"
-                />
-                <span>
-                  {testerAthleteCount === 0
-                    ? "Join Waitlist"
-                    : "Join as Athlete"}
-                </span>
-              </Link>
-            </Button>
-          </div>
+          <Card className="border-2 border-cyan-200 bg-cyan-50/50">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Fitness Businesses</span>
+                <Badge className="bg-cyan-500/20 text-cyan-700">
+                  {testerBusinessCount} spots left
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-2 text-left">
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-cyan-600" />
+                  <span>Create compelling business profiles</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-cyan-600" />
+                  <span>Manage bookings & payments</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-cyan-600" />
+                  <span>Handle reviews & reputation</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCheck className="h-4 w-4 text-cyan-600" />
+                  <span>Premium listing features</span>
+                </li>
+              </ul>
+              <Button
+                asChild
+                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
+                disabled={testerBusinessCount === 0}
+              >
+                <Link href="https://coach.gymbrah.com">
+                  <Image
+                    src="/logo/logo_white.svg"
+                    alt="Logo"
+                    width={16}
+                    height={16}
+                    className="sm:w-5 sm:h-5"
+                  />
+                  <span>
+                    {testerBusinessCount === 0
+                      ? "Join Waitlist"
+                      : "Join as Business"}
+                  </span>
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
-        <span className="text-sm sm:text-base text-muted-foreground">
-          Or join the waitlist to get early access and updates.
-        </span>
-
-        <SubscribeInput />
-
-        <p className="text-primary text-sm sm:text-base">
-          <span className="font-bold">{subscriberCount}</span> members on the
-          waitlist
-        </p>
+        <div className="w-full max-w-md space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Or join the waitlist to get early access and updates.
+          </p>
+          <SubscribeInput />
+          <p className="text-primary text-sm">
+            <span className="font-bold">{subscriberCount}</span> members on the
+            waitlist
+          </p>
+        </div>
 
         <div className="flex flex-col items-center gap-4 w-full">
           <div className="text-xs sm:text-sm text-muted-foreground flex flex-col items-center gap-2 mt-4">

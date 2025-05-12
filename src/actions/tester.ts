@@ -6,8 +6,8 @@ import type { ActionResponse } from "@/actions/types/action-response";
 import { prisma } from "@/lib/db";
 
 // Maximum number of testers allowed for each role
-const MAX_BUSINESS_TESTERS = 5;
-const MAX_ATHLETE_TESTERS = 20;
+const MAX_BUSINESS_TESTERS = 100;
+const MAX_ATHLETE_TESTERS = 100;
 
 const testerSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
