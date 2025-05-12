@@ -16,6 +16,7 @@ import { Loader2 } from "lucide-react";
 import { FAQ } from "@/components/sections/new/faq";
 import { Testimonials } from "@/components/sections/new/testimonials";
 import { WhoAmI } from "@/components/sections/new/whoami";
+import { Featured } from "@/components/sections/new/featured";
 
 export const revalidate = 3600; // revalidate every hour
 
@@ -39,6 +40,7 @@ export default async function Home() {
 
       <div className="space-y-16 max-w-screen-xl mx-auto">
         <Hero gyms={20} pts={1} members={subscriberCount} />
+        <Featured />
         <ServicesBusiness subscriberCount={subscriberCount} />
         <ServicesAthletes subscriberCount={subscriberCount} />
         <Testimonials />

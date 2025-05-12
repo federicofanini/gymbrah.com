@@ -183,7 +183,7 @@ export async function Hero({
         </div>
         <Demo />
       </div>
-      <Members gyms={gyms} pts={pts} members={members} />
+      {/* <Members gyms={gyms} pts={pts} members={members} /> */}
     </div>
   );
 }
