@@ -3,7 +3,7 @@ import { Features } from "@/components/sections/features";
 import { Footer } from "@/components/sections/footer";
 
 import { Header } from "@/components/sections/new/header";
-import { Pricing } from "@/components/sections/pricing";
+import { Pricing } from "@/components/sections/new/beta-pricing";
 
 // new components
 import { Hero } from "@/components/sections/new/hero";

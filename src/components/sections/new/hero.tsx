@@ -156,7 +156,7 @@ export async function Hero({
             </li>
           </ul>
 
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-8 flex-col md:flex-row">
             <div className="flex justify-center">
               <Link href={paths.discover}>
                 <OutlinedButton

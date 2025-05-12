@@ -13,6 +13,7 @@ import {
   UsersIcon,
   ZapIcon,
 } from "lucide-react";
+import { paths } from "./path";
 
 export const BLUR_FADE_DELAY = 0.15;
 
@@ -150,36 +151,38 @@ export const siteConfig = {
   pricing: [
     {
       name: "Athletes",
-      price: 45, // lifetime
+      price: 0, // beta price
       currency: "$",
       anchor: 95,
-      description: "Best workouts, better results.",
+      description: "Find and connect with the perfect gym or trainer.",
       features: [
-        "No more workout notes on your phone",
-        "Achievements tracking",
-        "Progress tracking",
-        "Community access",
-        "24/7 support",
+        "Smart location-based search",
+        "Category & service filtering",
+        "View pricing & contact details",
+        "Save favorite gyms & trainers",
+        "Leave reviews & ratings",
+        "Mobile responsive experience",
       ],
-      cta: "Reserve your spot",
-      link: "https://book.stripe.com/00g7vf2SX2GZcRG008",
+      cta: "Join Beta",
+      link: paths.users.dashboard,
     },
     {
-      name: "Fitness Creators",
-      price: 495, // lifetime
+      name: "Fitness Businesses",
+      price: 0, // beta price
       currency: "$",
-      anchor: 995,
-      description: "Same business, smarter gym.",
+      anchor: 495,
+      description: "Grow your fitness business with our platform.",
       features: [
-        "Member management",
-        "Performance analytics",
-        "Workout & Routines",
-        "Personal website page",
-        "Priority email support",
+        "Create compelling business profiles",
+        "Manage bookings & payments",
+        "Handle reviews & reputation",
+        "Premium listing features",
+        "Analytics dashboard",
+        "Priority support",
       ],
-      cta: "Become our partner",
+      cta: "Join Beta",
       popular: true,
-      link: "https://book.stripe.com/8wM3eZ0KP1CVcRGaEL",
+      link: paths.business.dashboard,
     },
   ],
   footer: {
