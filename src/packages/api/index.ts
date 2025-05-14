@@ -6,6 +6,7 @@ import { csrf } from "hono/csrf";
 import { timing } from "./middleware";
 import { onError } from "./utils/on-error";
 import { authRouter } from "./modules/auth/auth.router";
+import { searchRouter } from "./modules/search/search.router";
 
 // Create the main app router
 const appRouter = new Hono()
@@ -35,6 +36,7 @@ const appRouter = new Hono()
     return next();
   })
   .route("/api/user", authRouter)
+  .route("/api/search", searchRouter)
   .onError(onError as ErrorHandler);
 
 // Add a test endpoint to verify routing

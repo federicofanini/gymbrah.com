@@ -124,7 +124,7 @@ model Review {
 
 model BusinessEmbedding {
   businessId String   @id
-  embedding  Float[] // manually set up as `vector` in SQL
+  embedding  Float[] // Vector column - requires manual SQL setup: ALTER TABLE "BusinessEmbedding" ALTER COLUMN "embedding" TYPE vector(1536);
   business   Business @relation(fields: [businessId], references: [id])
 }
 
