@@ -1,6 +1,9 @@
+"use client";
+
 import { siteConfig } from "@/lib/config";
 import Link from "next/link";
-import AiSearch from "@/components/ai-search";
+import { HeroSearch } from "@/components/ai-search/hero-search";
+import { ArrowRightIcon, SparklesIcon } from "lucide-react";
 
 export function HeroSection() {
   const { hero } = siteConfig;
@@ -8,17 +11,40 @@ export function HeroSection() {
   return (
     <section id="hero" className="w-full relative">
       <div className="relative flex flex-col items-center w-full px-6">
-        <div className="relative z-10 pt-32 max-w-3xl mx-auto h-full w-full flex flex-col gap-10 items-center justify-center">
+        <div className="relative z-10 pt-32 max-w-4xl mx-auto h-full w-full flex flex-col gap-10 items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-5">
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium tracking-tighter text-balance text-center text-primary">
               {hero.title}
             </h1>
+            <p className="text-lg text-center text-gray-600 max-w-2xl mt-4">
+              Find the perfect fitness match with our AI-powered search.
+              Discover gyms, trainers, and studios tailored to your exact needs.
+            </p>
           </div>
-          <div className="flex items-center mb-12 w-full">
-            <AiSearch />
+
+          <div className="w-full bg-white rounded-xl shadow-xl p-6 border border-gray-100">
+            <div className="w-full space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+                  <SparklesIcon className="h-5 w-5 mr-2 text-primary" />
+                  AI-Powered Search
+                </h2>
+                <Link
+                  href="/search"
+                  className="text-sm text-primary hover:text-primary/80 font-medium flex items-center"
+                >
+                  Advanced Search
+                  <ArrowRightIcon className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
+              <HeroSearch />
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Decorative elements */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
     </section>
   );
 }

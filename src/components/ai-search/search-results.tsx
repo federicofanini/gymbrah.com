@@ -97,18 +97,6 @@ export const SearchResults = ({ results }: SearchResultsProps) => {
         </span>
       </div>
 
-      <div className="bg-blue-50 p-3 rounded-md mb-2 text-xs text-blue-800 flex items-start">
-        <InfoIcon className="h-4 w-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-        <div>
-          <p className="font-medium">About similarity scores:</p>
-          <p>
-            Results are ranked by semantic similarity to your query. Scores
-            represent how closely the result matches what you're looking for,
-            with higher percentages indicating better matches.
-          </p>
-        </div>
-      </div>
-
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
         {results.map((result) => {
           const similarityScore = calculateSimilarityScore(result.distance);

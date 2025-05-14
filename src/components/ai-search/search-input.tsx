@@ -7,7 +7,7 @@ import {
   AIInputToolbar,
 } from "@/components/ui/kibo-ui/ai/input";
 import { SendIcon } from "lucide-react";
-import { type FormEventHandler } from "react";
+import { type FormEventHandler, KeyboardEvent } from "react";
 
 interface SearchInputProps {
   onSubmit: FormEventHandler<HTMLFormElement>;
@@ -15,11 +15,24 @@ interface SearchInputProps {
 }
 
 export const SearchInput = ({ onSubmit, isLoading }: SearchInputProps) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      const form = e.currentTarget.form;
+      if (form) {
+        form.dispatchEvent(
+          new Event("submit", { cancelable: true, bubbles: true })
+        );
+      }
+    }
+  };
+
   return (
     <AIInput onSubmit={onSubmit}>
       <AIInputTextarea
         placeholder="Search for gyms, trainers, or fitness studios..."
         disabled={isLoading}
+        onKeyDown={handleKeyDown}
       />
       <AIInputToolbar className="justify-end">
         <AIInputSubmit disabled={isLoading}>
