@@ -31,13 +31,18 @@ export function BentoSection() {
               className="flex flex-col items-start justify-end min-h-[600px] md:min-h-[500px] p-0.5 relative before:absolute before:-left-0.5 before:top-0 before:z-10 before:h-screen before:w-px before:bg-border before:content-[''] after:absolute after:-top-0.5 after:left-0 after:z-10 after:h-px after:w-screen after:bg-border after:content-[''] group cursor-pointer max-h-[400px] group"
             >
               <div className="relative flex size-full items-center justify-center h-full overflow-hidden">
+                {/* Display gym/fitness related content like images or icons */}
                 {item.content}
               </div>
               <div className="flex-1 flex-col gap-2 p-6">
                 <h3 className="text-lg tracking-tighter font-semibold">
+                  {/* Titles could be: Find Perfect Gym, Book Classes, Compare Facilities etc */}
                   {item.title}
                 </h3>
-                <p className="text-muted-foreground">{item.description}</p>
+                <p className="text-muted-foreground">
+                  {/* Descriptions about gym search, booking, and comparison features */}
+                  {item.description}
+                </p>
               </div>
             </div>
           ))}

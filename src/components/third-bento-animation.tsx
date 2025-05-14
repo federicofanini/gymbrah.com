@@ -92,7 +92,7 @@ export function LineChart({
 
   const getColorWithOpacity = useCallback(
     (opacity: number) => colorWithOpacity(computedColor, opacity),
-    [computedColor],
+    [computedColor]
   );
 
   return (

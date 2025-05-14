@@ -325,44 +325,46 @@ export const siteConfig = {
     ],
   },
   bentoSection: {
-    title: "Empower Your Workflow with AI",
+    title: "Find your perfect fitness match",
     description:
-      "Ask your AI Agent for real-time collaboration, seamless integrations, and actionable insights to streamline your operations.",
+      "Discover and compare gyms, book classes, and track your fitness journey all in one place.",
     items: [
       {
         id: 1,
         content: <FirstBentoAnimation />,
-        title: "Real-time AI Collaboration",
+        title: "Find Perfect Gym",
         description:
-          "Experience real-time assistance. Ask your AI Agent to coordinate tasks, answer questions, and maintain team alignment.",
+          "Search and filter through our curated list of gyms to find the perfect match for your fitness goals and preferences.",
       },
       {
         id: 2,
         content: <SecondBentoAnimation />,
-        title: "Seamless Integrations",
+        title: "Book Classes",
         description:
-          "Unite your favorite tools for effortless connectivity. Boost productivity through interconnected workflows.",
+          "Browse and book fitness classes directly through our platform. From yoga to HIIT, find the class that fits your schedule.",
       },
       {
         id: 3,
         content: (
           <ThirdBentoAnimation
-            data={[20, 30, 25, 45, 40, 55, 75]}
+            data={[10, 25, 35, 45, 60, 80, 95]}
             toolTipValues={[
-              1234, 1678, 2101, 2534, 2967, 3400, 3833, 4266, 4700, 5133,
+              100, 250, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500,
             ]}
+            color="var(--primary)"
+            startAnimationDelay={0.5}
           />
         ),
-        title: "Instant Insight Reporting",
+        title: "Compare Facilities",
         description:
-          "Transform raw data into clear insights in seconds. Empower smarter decisions with real-time, always-learning intelligence.",
+          "Compare gym facilities, pricing, and member reviews side by side to make informed decisions about your fitness investment.",
       },
       {
         id: 4,
         content: <FourthBentoAnimation once={false} />,
-        title: "Smart Automation",
+        title: "Track Progress",
         description:
-          "Set it, forget it. Your AI Agent tackles repetitive tasks so you can focus on strategy, innovation, and growth.",
+          "Keep track of your gym visits, class attendance, and fitness achievements all in one convenient dashboard.",
       },
     ],
   },
@@ -1008,13 +1010,13 @@ export const siteConfig = {
   },
   ctaSection: {
     id: "cta",
-    title: "Automate. Simplify. Thrive",
-    backgroundImage: "/agent-cta-background.png",
+    title: "Fitness business, simplified.",
+    backgroundImage: "",
     button: {
-      text: "Start Your 30-Day Free Trial Today",
-      href: "#",
+      text: "List your fitness business",
+      href: "/listing",
     },
-    subtext: "Cancel anytime, no questions asked",
+    subtext: "Free while beta, no questions asked",
   },
   footerLinks: [
     {

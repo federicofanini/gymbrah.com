@@ -8,10 +8,11 @@ import {
   ReasoningResponse,
 } from "@/components/ui/reasoning";
 import { AnimatePresence, motion, useInView } from "motion/react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export function ReasoningBasic() {
-  const reasoningText = `Based on your calendar patterns and preferences, I recommend scheduling the team meeting for Tuesday at 2pm. This time slot has historically had the highest attendance rate, and it avoids conflicts with other recurring meetings.`;
+  const reasoningText = `Based on your fitness goals and schedule, I recommend the Gold's Gym on 5th Avenue. They have excellent weightlifting equipment, flexible class times that match your availability, and their peak hours align well with your preferred workout schedule.`;
 
   return (
     <Reasoning>
@@ -69,14 +70,14 @@ export function FirstBentoAnimation() {
               ease: "easeOut",
             }}
           >
-            <p className="text-sm">
-              Hey, I need help scheduling a team meeting that works well for
-              everyone. Any suggestions for finding an optimal time slot?
+            <p className="text-sm text-muted-foreground">
+              Hey, I'm looking for a gym that matches my schedule and fitness
+              goals. Can you help me find the best option in my area?
             </p>
           </motion.div>
           <div className="flex items-center bg-background rounded-full w-fit border border-border flex-shrink-0">
             <img
-              src="https://randomuser.me/api/portraits/women/79.jpg"
+              src="https://randomuser.me/api/portraits/men/79.jpg"
               alt="User Avatar"
               className="size-8 rounded-full flex-shrink-0"
             />
@@ -84,7 +85,13 @@ export function FirstBentoAnimation() {
         </div>
         <div className="flex items-start gap-2">
           <div className="flex items-center bg-background rounded-full size-10 flex-shrink-0 justify-center shadow-[0_0_10px_rgba(0,0,0,0.05)] border border-border">
-            <Icons.logo className="size-4" />
+            <Image
+              src="/logo/logo_black.png"
+              alt="GB"
+              className="size-8 rounded-full flex-shrink-0"
+              width={32}
+              height={32}
+            />
           </div>
 
           <div className="relative">
