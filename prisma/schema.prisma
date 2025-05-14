@@ -1,216 +1,131 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+  extensions = [pgvector]
 }
 
-model user {
-  id         String  @id @unique @default(uuid())
-  email      String  @unique
-  full_name  String
-  avatar_url String?
-
-  paid Boolean @default(false)
-  role String  @default("athlete")
-
-  created_at DateTime   @default(now())
-  updated_at DateTime   @updatedAt
-  feedback   feedback[]
-  business   business[]
+model User {
+  id         String     @id @default(cuid())
+  email      String     @unique
+  businesses Business[]
 }
 
-// Represents a subscription plan associated with a user.
-// user can be business or athlete
-model plan {
-  id      String @id @default(uuid())
-  user_id String
+model Business {
+  id          String       @id @default(cuid())
+  name        String
+  slug        String       @unique
+  type        BusinessType
+  description String
+  ownerId     String
+  owner       User         @relation(fields: [ownerId], references: [id])
 
-  stripe_customer_id     String
-  stripe_subscription_id String
-  stripe_price_id        String
-  plan_name              String
-  subscription_status    Boolean @default(false)
+  profile   BusinessProfile?
+  location  BusinessLocation?
+  contact   BusinessContact?
+  meta      BusinessMeta?
+  embedding BusinessEmbedding?
+  services  ServiceTag[]
+  amenities AmenityTag[]
+  gallery   Media[]
+  reviews   Review[]
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@index([user_id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model business {
-  id           String       @id @default(cuid())
-  type         BusinessType
-  name         String
-  slug         String       @unique
-  description  String
+model BusinessProfile {
+  id             String     @id @default(cuid())
+  businessId     String     @unique
+  logoUrl        String?
+  coverImageUrl  String?
+  pricingDetails String?
+  pricingFileUrl String?
+  priceRange     PriceRange
+
+  business Business @relation(fields: [businessId], references: [id])
+}
+
+model BusinessLocation {
+  id         String  @id @default(cuid())
+  businessId String  @unique
+  address    String
+  city       String
+  region     String?
+  country    String
+  zipCode    String
+  latitude   Float
+  longitude  Float
+
+  business Business @relation(fields: [businessId], references: [id])
+}
+
+model BusinessContact {
+  id           String  @id @default(cuid())
+  businessId   String  @unique
   email        String
   phone        String?
   whatsappLink String?
   websiteUrl   String?
   bookingUrl   String?
 
-  address   String
-  city      String
-  region    String?
-  country   String
-  zipCode   String
-  latitude  Float
-  longitude Float
+  business Business @relation(fields: [businessId], references: [id])
+}
 
-  priceRange     PriceRange
-  pricingDetails String?
-  pricingFileUrl String?
-
-  logoUrl       String?
-  coverImageUrl String?
-
+model BusinessMeta {
+  id         String         @id @default(cuid())
+  businessId String         @unique
   isVerified Boolean        @default(false)
   isFeatured Boolean        @default(false)
   status     BusinessStatus @default(PENDING)
+  viewCount  Int            @default(0)
 
-  viewCount Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  ownerId String
-  owner   user   @relation(fields: [ownerId], references: [id])
-
-  services  service_tag[]
-  amenities amenity_tag[]
-  gallery   media[]
-  reviews   review[]
-  apiKeys   api_key[]     @relation("BusinessApiKeys")
-
-  @@index([ownerId])
+  business Business @relation(fields: [businessId], references: [id])
 }
 
-// code for the business to invite athletes
-// unique business identifier, user friendly respect to user id (unique)
-model business_code {
-  id          String @id @default(uuid())
-  code        String @unique
-  business_id String
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@index([business_id])
-}
-
-model athlete {
-  id      String  @id @default(uuid())
-  user_id String?
-
-  athlete_code String  @unique // Unique athlete identifier 6 digits (e.g. 12ABC3)
-  invited_by   String? // Gym that registered the athlete
-  email        String  @unique // Stored for invitation process
-  phone        String? // Optional for SMS invite
-  name         String
-  surname      String
-
-  birth_date DateTime
-  gender     String
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@index([user_id])
-  @@index([athlete_code])
-}
-
-model feedback {
-  id         String   @id @default(uuid())
-  user_id    String
-  user       user     @relation(fields: [user_id], references: [id])
-  message    String   @db.Text
-  rating     Int // 1-5 rating scale
-  category   String // e.g. "bug", "feature-request", "general"
-  status     String   @default("pending") // e.g. "pending", "in-review", "resolved"
-  upvotes    Int      @default(0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@index([user_id])
-}
-
-model exercises {
-  id                String   @id @unique
-  name              String?
-  body_part         String?
-  equipment         String?
-  gif_url           String?
-  target            String?
-  secondary_muscles String[]
-  instructions      String[]
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
-
-  @@index([body_part])
-  @@index([target])
-  @@index([equipment])
-}
-
-model service_tag {
+model ServiceTag {
   id         String   @id @default(cuid())
   name       String
   businessId String
-  business   business @relation(fields: [businessId], references: [id])
+  business   Business @relation(fields: [businessId], references: [id])
 
-  @@index([businessId])
+  @@unique([businessId, name])
 }
 
-model amenity_tag {
+model AmenityTag {
   id         String   @id @default(cuid())
   name       String
   businessId String
-  business   business @relation(fields: [businessId], references: [id])
+  business   Business @relation(fields: [businessId], references: [id])
 
-  @@index([businessId])
+  @@unique([businessId, name])
 }
 
-model media {
+model Media {
   id         String   @id @default(cuid())
   url        String
   businessId String
-  business   business @relation(fields: [businessId], references: [id])
-
-  @@index([businessId])
+  business   Business @relation(fields: [businessId], references: [id])
 }
 
-model review {
+model Review {
   id         String   @id @default(cuid())
   rating     Int // 1 to 5
   comment    String?
   createdAt  DateTime @default(now())
   businessId String
-  business   business @relation(fields: [businessId], references: [id])
-
-  @@index([businessId])
+  business   Business @relation(fields: [businessId], references: [id])
 }
 
-model api_key {
-  id          String    @id @default(cuid())
-  name        String // A friendly name for the API key
-  key         String    @unique // The actual API key (hashed)
-  prefix      String    @unique // First few characters of the API key for identification
-  lastUsed    DateTime? // When the key was last used
-  expiresAt   DateTime? // Optional expiration date
-  revokedAt   DateTime? // When the key was revoked (soft delete)
-  permissions String[] // Array of permissions granted to this key
-
-  businessId String
-  business   business @relation("BusinessApiKeys", fields: [businessId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([businessId])
-  @@index([key])
-  @@index([prefix])
+model BusinessEmbedding {
+  businessId String   @id
+  embedding  Float[]
+  business   Business @relation(fields: [businessId], references: [id])
 }
 
 enum BusinessType {
@@ -229,4 +144,21 @@ enum BusinessStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+model exercises {
+  id                String   @id @unique
+  name              String?
+  body_part         String?
+  equipment         String?
+  gif_url           String?
+  target            String?
+  secondary_muscles String[]
+  instructions      String[]
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  @@index([body_part])
+  @@index([target])
+  @@index([equipment])
 }
