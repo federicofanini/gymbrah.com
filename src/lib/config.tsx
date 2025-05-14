@@ -18,7 +18,7 @@ export const Highlight = ({
     <span
       className={cn(
         "p-1 py-0.5 font-medium dark:font-semibold text-secondary",
-        className,
+        className
       )}
     >
       {children}
@@ -29,22 +29,22 @@ export const Highlight = ({
 export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
-  name: "Cal AI",
-  description: "Smart scheduling powered by AI.",
+  name: "GymBrah",
+  description: "AI-powered fitness aggregator.",
   cta: "Get Started",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   keywords: [
-    "AI Calendar",
-    "Smart Scheduling",
-    "Productivity",
-    "Time Management",
+    "AI Gym",
+    "Fitness Aggregator",
+    "AI-powered Fitness",
+    "AI-powered Gym",
   ],
   links: {
-    email: "support@calai.app",
-    twitter: "https://twitter.com/calaiapp",
-    discord: "https://discord.gg/calaiapp",
-    github: "https://github.com/calaiapp",
-    instagram: "https://instagram.com/calaiapp",
+    email: "support@gymbrah.com",
+    twitter: "https://twitter.com/gymbrah",
+    discord: "https://discord.gg/gymbrah",
+    github: "https://github.com/gymbrah",
+    instagram: "https://instagram.com/gymbrah",
   },
   nav: {
     links: [
@@ -70,7 +70,7 @@ export const siteConfig = {
       </svg>
     ),
     badge: "Introducing custom automations",
-    title: "Meet your AI Agent Streamline your workflow",
+    title: "Discover top-rated gyms and personal trainers near you",
     description:
       "AI assistant designed to streamline your digital workflows and handle mundane tasks, so you can focus on what truly matters",
     cta: {
