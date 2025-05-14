@@ -1,10 +1,10 @@
 export const siteConfig = {
-  name: "SkyAgent",
-  url: "https://agent-magicui.vercel.app",
-  description: "Your template for building AI-powered agents with Magic UI.",
+  name: "GymBrah",
+  url: "https://gymbrah.com",
+  description: "Discover top-rated gyms and personal trainers near you.",
   links: {
-    twitter: "https://x.com/dillionverma",
-    github: "https://github.com/dillionverma",
+    twitter: "https://twitter.com/GymBrah_com",
+    github: "https://github.com/federicofanini/gymbrah.com",
   },
 };
 

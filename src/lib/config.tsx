@@ -30,21 +30,28 @@ export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
   name: "GymBrah",
-  description: "AI-powered fitness aggregator.",
+  description:
+    "Explore verified fitness businesses near you. No memberships, no hidden fees — just clear, trusted profiles of gyms, studios, and personal trainers. ",
   cta: "Get Started",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   keywords: [
-    "AI Gym",
-    "Fitness Aggregator",
-    "AI-powered Fitness",
-    "AI-powered Gym",
+    "local gyms",
+    "personal trainers near me",
+    "verified fitness businesses",
+    "fitness discovery platform",
+    "gym directory",
+    "gyms near me",
+    "fitness studios near me",
+    "gyms in my area",
+    "personal trainers in my area",
+    "fitness studios in my area",
   ],
   links: {
-    email: "support@gymbrah.com",
-    twitter: "https://twitter.com/gymbrah",
-    discord: "https://discord.gg/gymbrah",
-    github: "https://github.com/gymbrah",
-    instagram: "https://instagram.com/gymbrah",
+    email: "fedef@gymbrah.com",
+    twitter: "https://twitter.com/GymBrah_com",
+    discord: "https://discord.com/invite/f7fSp6vQcK",
+    github: "https://github.com/federicofanini/gymbrah.com",
+    instagram: "#",
   },
   nav: {
     links: [
@@ -72,7 +79,7 @@ export const siteConfig = {
     badge: "Introducing custom automations",
     title: "Discover top-rated gyms and personal trainers near you",
     description:
-      "AI assistant designed to streamline your digital workflows and handle mundane tasks, so you can focus on what truly matters",
+      "Explore verified fitness businesses near you. No memberships, no hidden fees — just clear, trusted profiles of gyms, studios, and personal trainers. ",
     cta: {
       primary: {
         text: "Try for Free",
@@ -1022,28 +1029,25 @@ export const siteConfig = {
     {
       title: "Company",
       links: [
-        { id: 1, title: "About", url: "#" },
-        { id: 2, title: "Contact", url: "#" },
         { id: 3, title: "Blog", url: "#" },
-        { id: 4, title: "Story", url: "#" },
+        { id: 4, title: "Terms", url: "#" },
+        { id: 5, title: "Privacy", url: "#" },
       ],
     },
     {
-      title: "Products",
+      title: "For Gyms",
       links: [
-        { id: 5, title: "Company", url: "#" },
-        { id: 6, title: "Product", url: "#" },
-        { id: 7, title: "Press", url: "#" },
-        { id: 8, title: "More", url: "#" },
+        { id: 5, title: "List Your Gym", url: "/listing" },
+        { id: 6, title: "Partner Portal", url: "#" },
+        { id: 8, title: "Resources", url: "#" },
       ],
     },
     {
-      title: "Resources",
+      title: "For Members",
       links: [
-        { id: 9, title: "Press", url: "#" },
-        { id: 10, title: "Careers", url: "#" },
-        { id: 11, title: "Newsletters", url: "#" },
-        { id: 12, title: "More", url: "#" },
+        { id: 9, title: "Find a Gym", url: "#" },
+        { id: 10, title: "Personal Training", url: "#" },
+        { id: 12, title: "Support", url: "#" },
       ],
     },
   ],
