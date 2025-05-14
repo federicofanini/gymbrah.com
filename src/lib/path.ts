@@ -1,12 +1,21 @@
 export const paths = {
-  home: "/",
-  discover: "/discover",
-  gyms: "/gyms",
-  pts: "/pts",
-  business: {
-    dashboard: "/dashboard",
+  marketing: {
+    home: "/",
+    pricing: "/pricing",
+    contact: "/contact",
+    about: "/about",
+    terms: "/tos",
+    privacy: "/privacy",
   },
   users: {
-    dashboard: "/board",
+    home: "/dashboard",
+    chat: "/dashboard/chat",
+  },
+  admin: {
+    dashboard: "/admin/dashboard",
+  },
+  api: {
+    login: "/api/auth/login",
+    register: "/api/auth/register",
   },
 };

@@ -1,109 +1,70 @@
-import { siteConfig } from "@/lib/config";
-import { type ClassValue, clsx } from "clsx";
-import { Metadata } from "next";
+import { clsx, type ClassValue } from "clsx";
+import * as Color from "color-bits";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function absoluteUrl(path: string) {
-  return `${process.env.NEXT_PUBLIC_APP_URL || siteConfig.url}${path}`;
-}
+// Helper function to convert any CSS color to rgba
+export const getRGBA = (
+  cssColor: React.CSSProperties["color"],
+  fallback: string = "rgba(180, 180, 180)",
+): string => {
+  if (typeof window === "undefined") return fallback;
+  if (!cssColor) return fallback;
 
-export function constructMetadata({
-  title = siteConfig.name,
-  description = siteConfig.description,
-  image = absoluteUrl("/og"),
-  ...props
-}: {
-  title?: string;
-  description?: string;
-  image?: string;
-  [key: string]: Metadata[keyof Metadata];
-}): Metadata {
-  return {
-    title: {
-      template: "%s | " + siteConfig.name,
-      default: siteConfig.name,
-    },
-    description: description || siteConfig.description,
-    keywords: siteConfig.keywords,
-    openGraph: {
-      title,
-      description,
-      url: siteConfig.url,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-      type: "website",
-      locale: "en_US",
-    },
-    icons: "/favicon.ico",
-    metadataBase: new URL(siteConfig.url),
-    authors: [
-      {
-        name: siteConfig.name,
-        url: siteConfig.url,
-      },
-    ],
-    ...props,
-  };
-}
+  try {
+    // Handle CSS variables
+    if (typeof cssColor === "string" && cssColor.startsWith("var(")) {
+      const element = document.createElement("div");
+      element.style.color = cssColor;
+      document.body.appendChild(element);
+      const computedColor = window.getComputedStyle(element).color;
+      document.body.removeChild(element);
+      return Color.formatRGBA(Color.parse(computedColor));
+    }
 
-export function formatDate(date: string) {
-  let currentDate = new Date().getTime();
-  if (!date.includes("T")) {
-    date = `${date}T00:00:00`;
+    return Color.formatRGBA(Color.parse(cssColor));
+  } catch (e) {
+    console.error("Color parsing failed:", e);
+    return fallback;
   }
-  let targetDate = new Date(date).getTime();
-  let timeDifference = Math.abs(currentDate - targetDate);
-  let daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+};
 
-  let fullDate = new Date(date).toLocaleString("en-us", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+// Helper function to add opacity to an RGB color string
+export const colorWithOpacity = (color: string, opacity: number): string => {
+  if (!color.startsWith("rgb")) return color;
+  return Color.formatRGBA(Color.alpha(Color.parse(color), opacity));
+};
 
-  if (daysAgo < 1) {
-    return "Today";
-  } else if (daysAgo < 7) {
-    return `${fullDate} (${daysAgo}d ago)`;
-  } else if (daysAgo < 30) {
-    const weeksAgo = Math.floor(daysAgo / 7);
-    return `${fullDate} (${weeksAgo}w ago)`;
-  } else if (daysAgo < 365) {
-    const monthsAgo = Math.floor(daysAgo / 30);
-    return `${fullDate} (${monthsAgo}mo ago)`;
-  } else {
-    const yearsAgo = Math.floor(daysAgo / 365);
-    return `${fullDate} (${yearsAgo}y ago)`;
-  }
-}
+// Tremor Raw focusInput [v0.0.1]
 
-export function slugify(text: string) {
-  return text
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-    .replace(/\-\-+/g, "-") // Replace multiple - with single -
-    .replace(/^-+/, "") // Trim - from start of text
-    .replace(/-+$/, ""); // Trim - from end of text
-}
+export const focusInput = [
+  // base
+  "focus:ring-2",
+  // ring color
+  "focus:ring-blue-200 focus:dark:ring-blue-700/30",
+  // border color
+  "focus:border-blue-500 focus:dark:border-blue-700",
+];
 
-export function generateExerciseUrl(exercise: {
-  id: string | number;
-  name: string;
-}) {
-  return `/exercises/${exercise.id}-${exercise.name
-    .toLowerCase()
-    .replace(/\s+/g, "-")}`;
-}
+// Tremor Raw focusRing [v0.0.1]
+
+export const focusRing = [
+  // base
+  "outline outline-offset-2 outline-0 focus-visible:outline-2",
+  // outline color
+  "outline-blue-500 dark:outline-blue-500",
+];
+
+// Tremor Raw hasErrorInput [v0.0.1]
+
+export const hasErrorInput = [
+  // base
+  "ring-2",
+  // border color
+  "border-red-500 dark:border-red-700",
+  // ring color
+  "ring-red-200 dark:ring-red-700/30",
+];

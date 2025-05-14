@@ -1,0 +1,46 @@
+import { OpenPanel, type PostEventPayload } from "@openpanel/nextjs";
+import { waitUntil } from "@vercel/functions";
+import { cookies } from "next/headers";
+
+type Props = {
+  userId?: string;
+  fullName?: string | null;
+};
+
+export const setupAnalytics = async (options?: Props) => {
+  const { userId, fullName } = options ?? {};
+  const cookieStore = await cookies();
+  const trackingConsent =
+    !cookieStore.has("tracking-consent") ||
+    cookieStore.get("tracking-consent")?.value === "1";
+
+  const client = new OpenPanel({
+    clientId: process.env.OPEN_PANEL_CLIENT_ID!,
+    clientSecret: process.env.OPEN_PANEL_CLIENT_SECRET!,
+  });
+
+  if (trackingConsent && userId && fullName) {
+    const [firstName, lastName] = fullName.split(" ");
+
+    waitUntil(
+      client.identify({
+        profileId: userId,
+        firstName,
+        lastName,
+      })
+    );
+  }
+
+  return {
+    track: (options: { event: string } & PostEventPayload["properties"]) => {
+      if (process.env.NODE_ENV !== "production") {
+        console.log("Track", options);
+        return;
+      }
+
+      const { event, ...rest } = options;
+
+      waitUntil(client.track(event, rest));
+    },
+  };
+};

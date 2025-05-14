@@ -1,92 +1,36 @@
-<div align="center">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# GymBrah
+## Getting Started
 
-Build better tiny habits to get fit and healthy.
+First, run the development server:
 
-[💬 Discord](https://discord.gg/)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🚀 Join](https://www.gymbrah.com)
-
-</div>
-
-## Database Flow
-
-This documentation outlines the database architecture and flow within the GymBrah application, focusing on the athlete onboarding process facilitated by the `athlete_code` system. The following diagram illustrates the interaction between key tables:
-
-```mermaid
-graph TD
-    business["business<br/>- id (UUID)<br/>- user_id (FK)<br/>- name"]
-    athlete["athlete<br/>- id (UUID)<br/>- user_id (FK)<br/>- athlete_code (U)<br/>- invited_by (FK)<br/>- email<br/>- phone"]
-    user["user<br/>- id (UUID)<br/>- email (U)<br/>- full_name<br/>- avatar_url<br/>- created_at"]
-    workout["workout<br/>- id (UUID)<br/>- name<br/>- user_id (FK)<br/>- athlete_id (FK)<br/>- selected"]
-    waitlist["waitlist<br/>- id (UUID)<br/>- email (U)<br/>- created_at"]
-    workout_athlete["workout_athlete<br/>- id (UUID)<br/>- workout_id (FK)<br/>- athlete_id (FK)<br/>- business_id (FK)"]
-
-    business -->|Registers Athlete| athlete
-    user --> athlete
-    user --> workout
-    athlete --> workout
-    workout --> workout_athlete
-    athlete --> workout_athlete
-    business --> workout_athlete
-    user --> waitlist
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## 📌 How the Flow Works
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-1️⃣ **Gym Registers an Athlete**
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- Creates a new athlete record with a unique `athlete_code`.
-- Sends an invitation email/SMS containing the `athlete_code` for the athlete to join.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-2️⃣ **Athlete Signs Up**
+## Learn More
 
-- If the athlete's email matches an existing invite, the user is automatically linked to the athlete record.
-- If not, the athlete can manually enter the `athlete_code` to associate their account.
+To learn more about Next.js, take a look at the following resources:
 
-3️⃣ **Workout Assignment & Tracking**
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- The `workout_athlete` table manages the association between workouts and athletes.
-- Gyms can assign workouts to athletes even before the athletes have completed their signup process.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## 🔧 Useful Tips for Managing the App
+## Deploy on Vercel
 
-### Database Schema Management
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- **Prisma Migrate:** Use Prisma Migrate to handle schema changes smoothly. Run `npx prisma migrate dev` to apply migrations.
-- **Client Generation:** After updating the schema, generate the Prisma client with `npx prisma generate` to ensure type safety and access to the latest models.
-
-### Data Integrity
-
-- **Relations:** Utilize Prisma's relational mappings to maintain referential integrity between tables.
-- **Transactions:** Use transactions for bulk operations to ensure atomicity and consistency.
-
-### Athlete Onboarding
-
-- **Unique Codes:** Ensure `athlete_code` uniqueness by enforcing constraints in the Prisma schema.
-- **Validation:** Implement front-end and back-end validation for `athlete_code` during the signup process to prevent errors.
-
-### Performance Optimization
-
-- **Indexing:** Index frequently queried fields such as `user_id`, `athlete_code`, and foreign keys to enhance query performance.
-- **Lazy Loading:** Utilize Prisma's lazy loading features to fetch related records only when necessary, reducing initial load times.
-
-### Security Best Practices
-
-- **Authentication & Authorization:** Protect sensitive endpoints with robust authentication mechanisms and ensure proper authorization checks.
-- **Input Sanitization:** Sanitize and validate all inputs, especially user-generated content and `athlete_code`, to prevent injection attacks.
-
-### Monitoring & Maintenance
-
-- **Database Backups:** Regularly back up your PostgreSQL database to prevent data loss. Consider automated backup solutions.
-- **Performance Monitoring:** Use tools like PgAdmin or other PostgreSQL monitoring solutions to keep an eye on database performance and identify bottlenecks.
-
-### Development Workflow
-
-- **Version Control:** Keep your Prisma schema and migrations under version control to track changes and collaborate effectively.
-- **Environment Management:** Use environment variables to manage different configurations for development, staging, and production environments.
-
-By adhering to these guidelines, you can ensure a robust, secure, and maintainable database structure that supports the GymBrah application's growth and scalability.
-
-```
-
-```
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

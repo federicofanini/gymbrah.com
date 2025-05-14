@@ -1,20 +1,19 @@
-import { TailwindIndicator } from "@/components/tailwind-indicator";
-import { ThemeProvider } from "@/components/theme-provider";
-import { siteConfig } from "@/lib/config";
-import { cn, constructMetadata } from "@/lib/utils";
-
+//import { Navbar } from "@/components/sections/navbar";
+import { Navbar } from "@/components/sections/navbar";
+import { siteConfig } from "@/lib/site";
 import type { Metadata, Viewport } from "next";
 
-export const metadata: Metadata = constructMetadata({
-  title: `${siteConfig.name} | ${siteConfig.description}`,
-});
-
 export const viewport: Viewport = {
-  colorScheme: "dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "black",
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
 };
 
 export default function MarketingLayout({
@@ -22,5 +21,12 @@ export default function MarketingLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <div className="max-w-7xl mx-auto border-x relative">
+      <Navbar />
+      <div className="block w-px h-full border-l border-border absolute top-0 left-6 z-10"></div>
+      <div className="block w-px h-full border-r border-border absolute top-0 right-6 z-10"></div>
+      {children}
+    </div>
+  );
 }
