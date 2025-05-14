@@ -55,10 +55,10 @@ export const siteConfig = {
   },
   nav: {
     links: [
-      { id: 1, name: "Home", href: "#hero" },
-      { id: 2, name: "How it Works", href: "#bento" },
-      { id: 3, name: "Features", href: "#features" },
-      { id: 4, name: "Pricing", href: "#pricing" },
+      { id: 2, name: "Gyms", href: "/gyms" },
+      { id: 3, name: "PTs", href: "/pts" },
+      { id: 4, name: "Exercises", href: "/exercises" },
+      { id: 5, name: "Pricing", href: "/pricing" },
     ],
   },
   hero: {
