@@ -3,7 +3,7 @@
 import { siteConfig } from "@/lib/config";
 import Link from "next/link";
 import { HeroSearch } from "@/components/ai-search/hero-search";
-import { ArrowRightIcon, SparklesIcon } from "lucide-react";
+import { ArrowRightIcon, Search, SparklesIcon } from "lucide-react";
 
 export function HeroSection() {
   const { hero } = siteConfig;
@@ -17,7 +17,6 @@ export function HeroSection() {
               {hero.title}
             </h1>
             <p className="text-lg text-center text-gray-600 max-w-2xl mt-4">
-              Find the perfect fitness match with our AI-powered search.
               Discover gyms, trainers, and studios tailored to your exact needs.
             </p>
           </div>
@@ -25,16 +24,19 @@ export function HeroSection() {
           <div className="w-full bg-white rounded-xl shadow-xl p-6 border border-gray-100">
             <div className="w-full space-y-6">
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold text-gray-800 flex items-center">
-                  <SparklesIcon className="h-5 w-5 mr-2 text-primary" />
-                  AI-Powered Search
+                <h2 className="sm:text-xl text-lg font-semibold text-gray-800 flex items-center">
+                  <span className="sm:hidden">Find fitness</span>
+                  <span className="hidden sm:block">
+                    Search for a gym, trainer, or studio
+                  </span>
                 </h2>
+
                 <Link
                   href="/search"
                   className="text-sm text-primary hover:text-primary/80 font-medium flex items-center"
                 >
-                  Advanced Search
-                  <ArrowRightIcon className="h-4 w-4 ml-1" />
+                  <span className="hidden sm:block">Advanced search</span>
+                  <Search className="h-4 w-4 ml-1.5" />
                 </Link>
               </div>
               <HeroSearch />
