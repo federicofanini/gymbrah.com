@@ -3,14 +3,14 @@
 import { siteConfig } from "@/lib/config";
 import Link from "next/link";
 import { HeroSearch } from "@/components/ai-search/hero-search";
-import { ArrowRightIcon, Search, SparklesIcon } from "lucide-react";
+import { Search } from "lucide-react";
 
 export function HeroSection() {
   const { hero } = siteConfig;
 
   return (
     <section id="hero" className="w-full relative">
-      <div className="relative flex flex-col items-center w-full px-6">
+      <div className="relative flex flex-col items-center w-full px-6 mb-10">
         <div className="relative z-10 pt-32 max-w-4xl mx-auto h-full w-full flex flex-col gap-10 items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-5">
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium tracking-tighter text-balance text-center text-primary">
