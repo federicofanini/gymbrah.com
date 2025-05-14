@@ -5,7 +5,6 @@ import { SearchInput } from "./search-input";
 import { SearchResults, type BusinessSearchResult } from "./search-results";
 import { SearchStatus } from "./search-status";
 import { DebugPanel } from "./debug-panel";
-import { SearchInfo } from "./search-info";
 import { SearchLayout, SearchSection } from "./search-layout";
 
 const AiSearch = () => {
@@ -17,7 +16,7 @@ const AiSearch = () => {
   const [responseTime, setResponseTime] = useState<number | undefined>(
     undefined
   );
-  const [rawError, setRawError] = useState<any>(null);
+  const [rawError, setRawError] = useState<Error | unknown | null>(null);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();

@@ -5,7 +5,6 @@ import {
   ChevronDown,
   ChevronUp,
   Bug,
-  Terminal,
   ExternalLink,
   Database,
   ArrowDownUp,
@@ -14,7 +13,7 @@ import {
 
 interface DebugPanelProps {
   lastQuery: string | null;
-  error: any;
+  error: Error | string | null | unknown;
   responseTime?: number;
 }
 
@@ -38,6 +37,21 @@ export const DebugPanel = ({
 
   const isPrismaAccelerateError =
     errorStr.includes("prisma") && errorStr.includes("accelerate");
+
+  // Helper function to safely stringify any error type
+  const formatError = (err: unknown): string => {
+    if (err instanceof Error) {
+      return err.message;
+    }
+    if (typeof err === "object" && err !== null) {
+      try {
+        return JSON.stringify(err, null, 2);
+      } catch {
+        return String(err);
+      }
+    }
+    return String(err);
+  };
 
   return (
     <div className="mt-4 border border-gray-200 rounded-md overflow-hidden">
@@ -79,13 +93,11 @@ export const DebugPanel = ({
               </div>
             )}
 
-            {error && (
+            {error !== null && error !== undefined && (
               <div>
                 <h4 className="text-xs font-semibold text-gray-500">Error:</h4>
                 <pre className="mt-1 text-xs bg-red-50 text-red-800 p-2 rounded overflow-auto">
-                  {typeof error === "object"
-                    ? JSON.stringify(error, null, 2)
-                    : String(error)}
+                  {formatError(error)}
                 </pre>
               </div>
             )}

@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { NavUserHome } from "../private/nav-user-home";
 import { getAuthUser } from "@/packages/auth/get-user";
-import { SidebarProvider } from "../ui/sidebar";
 
 export async function Navbar() {
   const user = await getAuthUser();

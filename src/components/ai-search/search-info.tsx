@@ -43,8 +43,9 @@ export const SearchInfo = () => {
                   matches
                 </li>
                 <li>
-                  Understands synonyms and related concepts (e.g., "strength
-                  training" ≈ "weight lifting")
+                  Understands synonyms and related concepts (e.g.,
+                  &ldquo;strength training&rdquo; ≈ &ldquo;weight
+                  lifting&rdquo;)
                 </li>
                 <li>
                   Ranks results by similarity score rather than just keyword
@@ -59,10 +60,14 @@ export const SearchInfo = () => {
                 <strong>Try searching for:</strong>
               </div>
               <ul className="text-blue-600 pl-5 list-disc space-y-0.5">
-                <li>"Yoga studios with meditation classes"</li>
-                <li>"Personal trainers for weight loss in midtown"</li>
-                <li>"Gyms with free weights and cardio equipment"</li>
-                <li>"Boxing or martial arts training"</li>
+                <li>&ldquo;Yoga studios with meditation classes&rdquo;</li>
+                <li>
+                  &ldquo;Personal trainers for weight loss in midtown&rdquo;
+                </li>
+                <li>
+                  &ldquo;Gyms with free weights and cardio equipment&rdquo;
+                </li>
+                <li>&ldquo;Boxing or martial arts training&rdquo;</li>
               </ul>
             </div>
 

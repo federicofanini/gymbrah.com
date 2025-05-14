@@ -12,7 +12,6 @@ import {
   UserIcon,
   MapPinIcon,
   StarIcon,
-  InfoIcon,
 } from "lucide-react";
 
 export type BusinessSearchResult = {
