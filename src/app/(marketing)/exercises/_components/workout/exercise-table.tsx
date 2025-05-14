@@ -36,7 +36,7 @@ import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { slugify } from "@/lib/utils";
-import Image from "next/image";
+import { FallbackImage } from "@/components/ui/fallback-image";
 
 interface Exercise {
   id: string;
@@ -197,8 +197,8 @@ export function ExerciseTable({
                   <TableCell>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Image
-                          src={exercise.gif_url || "/images/placeholder.png"}
+                        <FallbackImage
+                          src={exercise.gif_url || "/placeholder-exercise.png"}
                           alt={exercise.name || "Exercise demonstration"}
                           width={64}
                           height={64}
@@ -212,8 +212,10 @@ export function ExerciseTable({
                           </DialogTitle>
                         </DialogHeader>
                         <div className="flex justify-center">
-                          <Image
-                            src={exercise.gif_url || "/images/placeholder.png"}
+                          <FallbackImage
+                            src={
+                              exercise.gif_url || "/placeholder-exercise.png"
+                            }
                             alt={exercise.name || "Exercise demonstration"}
                             width={400}
                             height={400}

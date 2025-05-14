@@ -19,7 +19,7 @@ import { notFound } from "next/navigation";
 import { CTASection } from "@/components/sections/cta-section";
 import { FooterSection } from "@/components/sections/footer-section";
 import Link from "next/link";
-import Image from "next/image";
+import { FallbackImage } from "@/components/ui/fallback-image";
 
 export const revalidate = 3600; // Revalidate GIF URLs every hour
 
@@ -162,11 +162,11 @@ async function ExercisePageContent({ exerciseId }: { exerciseId: string }) {
                   </div>
                   <div className="w-full md:w-auto">
                     {exercise.gif_url ? (
-                      <Image
+                      <FallbackImage
                         src={exercise.gif_url}
                         alt={`${exercise.name || "Exercise"} demonstration`}
                         className="rounded-lg w-full md:w-[300px] h-auto"
-                        loading="lazy"
+                        priority={true}
                         width={300}
                         height={300}
                       />
