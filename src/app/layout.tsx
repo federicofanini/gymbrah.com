@@ -1,26 +1,33 @@
-import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
-import { siteConfig } from "@/lib/config";
-import { cn, constructMetadata } from "@/lib/utils";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
+import { siteConfig } from "@/lib/site";
 import type { Metadata, Viewport } from "next";
-import { Provider as Analytics } from "@/utils/events/client";
-import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
+import { Geist, Geist_Mono } from "next/font/google";
+import "../styles/landing.css";
+import { AuthProvider } from "@/packages/auth/auth-provider";
+import { Provider as Analytics } from "@/packages/events/client";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Header } from "@/components/sections/new/header";
 
-export const metadata: Metadata = constructMetadata({
-  title: `${siteConfig.name} | ${siteConfig.description}`,
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const viewport: Viewport = {
-  colorScheme: "dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "black",
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
@@ -29,27 +36,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
-    >
-      <body
-        className={cn(
-          "min-h-screen bg-background antialiased w-full mx-auto scroll-smooth font-sans"
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
+    <AuthProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-background`}
         >
-          <NuqsAdapter>{children}</NuqsAdapter>
-          <TailwindIndicator />
-        </ThemeProvider>
-        <Toaster />
-        <Analytics />
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NuqsAdapter>{children}</NuqsAdapter>
+          </ThemeProvider>
+          <Analytics />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

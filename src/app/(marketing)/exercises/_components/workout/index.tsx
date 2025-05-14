@@ -1,7 +1,3 @@
-"use client";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useQueryState } from "nuqs";
 import { ExerciseTable } from "./exercise-table";
 
 interface Exercise {
@@ -30,14 +26,6 @@ interface Workout {
   name: string;
   created_at: string;
   exercises: WorkoutExercise[];
-}
-
-interface Athlete {
-  id: string;
-  full_name: string;
-  goal: string;
-  gender_age: string;
-  status: string;
 }
 
 interface PaginatedResponse {

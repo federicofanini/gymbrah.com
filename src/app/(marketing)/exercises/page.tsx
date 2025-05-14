@@ -1,18 +1,25 @@
 import { Suspense } from "react";
 import { WorkoutPage } from "./_components/workout";
-import { Header } from "@/components/sections/new/header";
-import { Footer } from "@/components/sections/footer";
-import { CTA } from "@/components/sections/cta";
-import { getSubscriberCount } from "@/actions/subscribe-action";
-import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";
-import { constructMetadata } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getExercisesByBodyPart } from "@/actions/exercises/exercise-by-bodyPart";
-import { getExercises } from "@/actions/exercises/exercises-list";
+import { getExercisesByBodyPart } from "@/packages/database/exercises/exercise-by-bodyPart";
+import { getExercises } from "@/packages/database/exercises/exercises-list";
+import { CTASection } from "@/components/sections/cta-section";
+import { FooterSection } from "@/components/sections/footer-section";
 
 export const revalidate = 3600; // Revalidate GIF URLs every hour
+
+interface Exercise {
+  id: string;
+  name: string | null;
+  body_part: string | null;
+  equipment: string | null;
+  gif_url: string | null;
+  target: string | null;
+  secondary_muscles: string[];
+  instructions: string[];
+}
 
 export async function generateStaticParams() {
   const exercisesResponse = await getExercises({ page: 1, limit: 1000 });
@@ -20,9 +27,13 @@ export async function generateStaticParams() {
     return [];
   }
 
-  const exercises = exercisesResponse.data.data.exercises;
+  const exercises = exercisesResponse.data.data?.exercises || [];
   const bodyParts = [
-    ...new Set(exercises.map((exercise: any) => exercise.body_part)),
+    ...new Set(
+      exercises
+        .map((exercise: Exercise) => exercise.body_part || "")
+        .filter(Boolean)
+    ),
   ] as string[];
 
   return bodyParts.map((bodyPart) => ({
@@ -30,7 +41,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export const metadata: Metadata = constructMetadata({
+export const metadata: Metadata = {
   title: "Exercise Library - Browse Exercises with Instructions & Animations",
   description:
     "Browse our comprehensive collection of exercises with detailed instructions and animations. Find exercises by body part, target muscle, and equipment.",
@@ -56,7 +67,7 @@ export const metadata: Metadata = constructMetadata({
   openGraph: {
     title: "Exercise Library - Browse Exercises with Instructions & Animations",
     description:
-      "Browse our comprehensive collection of exercises with detailed instructions and animations. Find exercises by body part, target muscle, and equipment.",
+      "Browse our collection of exercises with detailed instructions and animations. Find exercises by body part, target muscle, and equipment.",
     type: "website",
     images: [
       {
@@ -67,7 +78,7 @@ export const metadata: Metadata = constructMetadata({
       },
     ],
   },
-});
+};
 
 function LoadingSkeleton() {
   return (
@@ -86,7 +97,7 @@ function LoadingSkeleton() {
   );
 }
 
-function generateStructuredData(exercises: any[]) {
+function generateStructuredData(exercises: Exercise[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -103,24 +114,36 @@ function generateStructuredData(exercises: any[]) {
   };
 }
 
+type SearchParams = {
+  page?: string;
+  bodyPart?: string;
+  search?: string;
+  target?: string;
+  equipment?: string;
+};
+
+type PageProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: Record<string, never> & Promise<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams: SearchParams & Promise<any>;
+};
+
+export default async function ExercisesPage(props: PageProps) {
+  return (
+    <Suspense fallback={<LoadingSkeleton />}>
+      <ExercisesPageWrapper searchParams={props.searchParams} />
+    </Suspense>
+  );
+}
+
 async function ExercisesPageWrapper({
   searchParams,
 }: {
-  searchParams: {
-    page?: string;
-    bodyPart?: string;
-    search?: string;
-    target?: string;
-    equipment?: string;
-  } & Promise<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams: SearchParams & Promise<any>;
 }) {
-  const subscriberCountResponse = await getSubscriberCount();
-  const subscriberCount = subscriberCountResponse.success ? (
-    subscriberCountResponse.data.count
-  ) : (
-    <Loader2 className="w-4 h-4 animate-spin" />
-  );
-
+  // Just use searchParams directly without awaiting for backward compatibility
   const selectedBodyPart = searchParams.bodyPart || "all";
   const currentPage = Number(searchParams.page) || 1;
   const pageSize = 10;
@@ -134,13 +157,12 @@ async function ExercisesPageWrapper({
   if (!exercisesResponse?.data?.success) {
     return (
       <>
-        <Header />
         <div className="container py-8">
           <h1 className="text-2xl font-bold mb-4">Exercise Library</h1>
           <p className="text-muted-foreground">Failed to load exercises.</p>
         </div>
-        <CTA subscriberCount={subscriberCount} />
-        <Footer />
+        <CTASection />
+        <FooterSection />
       </>
     );
   }
@@ -151,8 +173,42 @@ async function ExercisesPageWrapper({
   });
 
   if (!initialExercisesResponse?.data?.success) {
-    throw new Error(initialExercisesResponse?.data?.error as string);
+    throw new Error(
+      initialExercisesResponse?.data?.error || "Failed to fetch exercises"
+    );
   }
+
+  const exercisesData = exercisesResponse.data.data || {
+    exercises: [],
+    pagination: { total: 0, pages: 0, currentPage: 1, limit: 10 },
+  };
+
+  // Convert potentially nullable fields to non-nullable for component props
+  const sanitizedExercises = {
+    exercises: exercisesData.exercises.map((exercise) => ({
+      id: exercise.id,
+      name: exercise.name || "",
+      body_part: exercise.body_part || "",
+      equipment: exercise.equipment || "",
+      target: exercise.target || "",
+      gif_url: exercise.gif_url || "",
+      secondary_muscles: exercise.secondary_muscles || [],
+      instructions: exercise.instructions || [],
+    })),
+    pagination: exercisesData.pagination,
+  };
+
+  const initialExercisesData =
+    initialExercisesResponse.data.data?.exercises?.map((exercise) => ({
+      id: exercise.id,
+      name: exercise.name || "",
+      body_part: exercise.body_part || "",
+      equipment: exercise.equipment || "",
+      target: exercise.target || "",
+      gif_url: exercise.gif_url || "",
+      secondary_muscles: exercise.secondary_muscles || [],
+      instructions: exercise.instructions || [],
+    })) || [];
 
   return (
     <>
@@ -160,12 +216,11 @@ async function ExercisesPageWrapper({
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            generateStructuredData(exercisesResponse.data.data.exercises)
+            generateStructuredData(exercisesData.exercises)
           ),
         }}
       />
-      <Header />
-      <div className="py-8 max-w-screen-xl mx-auto">
+      <div className="py-12 max-w-screen-xl mx-auto">
         <h1 className="text-3xl font-bold mb-2 px-4">Exercise Library</h1>
         <p className="text-lg text-muted-foreground mb-8 px-4">
           Browse our comprehensive collection of exercises with detailed
@@ -173,32 +228,14 @@ async function ExercisesPageWrapper({
         </p>
 
         <WorkoutPage
-          exercises={exercisesResponse.data.data}
-          initialExercises={initialExercisesResponse.data.data.exercises}
+          exercises={sanitizedExercises}
+          initialExercises={initialExercisesData}
           workouts={[]}
           assignedWorkouts={[]}
         />
       </div>
-      <CTA subscriberCount={subscriberCount} />
-      <Footer />
+      <CTASection />
+      <FooterSection />
     </>
-  );
-}
-
-export default function ExercisesPage({
-  searchParams,
-}: {
-  searchParams: {
-    page?: string;
-    bodyPart?: string;
-    search?: string;
-    target?: string;
-    equipment?: string;
-  } & Promise<any>;
-}) {
-  return (
-    <Suspense fallback={<LoadingSkeleton />}>
-      <ExercisesPageWrapper searchParams={searchParams} />
-    </Suspense>
   );
 }
