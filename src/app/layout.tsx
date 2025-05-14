@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/landing.css";
 import { AuthProvider } from "@/packages/auth/auth-provider";
 import { Provider as Analytics } from "@/packages/events/client";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,7 +47,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <NuqsAdapter>{children}</NuqsAdapter>
           </ThemeProvider>
           <Analytics />
         </body>
