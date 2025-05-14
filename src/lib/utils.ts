@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 // Helper function to convert any CSS color to rgba
 export const getRGBA = (
   cssColor: React.CSSProperties["color"],
-  fallback: string = "rgba(180, 180, 180)",
+  fallback: string = "rgba(180, 180, 180)"
 ): string => {
   if (typeof window === "undefined") return fallback;
   if (!cssColor) return fallback;

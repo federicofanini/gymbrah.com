@@ -1,6 +1,6 @@
 import { siteConfig } from "@/lib/config";
 import Link from "next/link";
-import AiSearch from "./ai-search";
+import AiSearch from "@/components/ai-search";
 
 export function HeroSection() {
   const { hero } = siteConfig;
