@@ -3,13 +3,24 @@
 import { siteConfig } from "@/lib/config";
 import Link from "next/link";
 import { HeroSearch } from "@/components/ai-search/hero-search";
-import { Search } from "lucide-react";
+import { Search, Construction } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export function HeroSection() {
   const { hero } = siteConfig;
 
   return (
     <section id="hero" className="w-full relative">
+      <div className="absolute top-18 left-1/2 transform -translate-x-1/2 z-20">
+        <Badge
+          variant="destructive"
+          className="py-1.5 px-3 text-sm font-medium flex items-center gap-1.5 rounded-full"
+        >
+          <Construction className="h-3.5 w-3.5" />
+          Under Development
+        </Badge>
+      </div>
+
       <div className="relative flex flex-col items-center w-full px-6 mb-10">
         <div className="relative z-10 pt-32 max-w-4xl mx-auto h-full w-full flex flex-col gap-10 items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-5">
