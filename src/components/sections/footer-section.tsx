@@ -7,6 +7,7 @@ import { siteConfig } from "@/lib/config";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
+import { GithubStars } from "../github-stars";
 
 export function FooterSection() {
   const tablet = useMediaQuery("(max-width: 1024px)");
@@ -37,7 +38,7 @@ export function FooterSection() {
               <Icons.discord className="size-5" />
             </Link>
             <Link href={siteConfig.links.github} className="hover:opacity-80">
-              <Icons.github className="size-5" />
+              <GithubStars />
             </Link>
           </div>
         </div>
