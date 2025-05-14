@@ -1,3 +1,9 @@
+import { ComingSoon } from "@/components/coming-soon";
+
 export default function PtsPage() {
-  return <div>Pts</div>;
+  return (
+    <div className="container py-10">
+      <ComingSoon />
+    </div>
+  );
 }

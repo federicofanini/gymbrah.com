@@ -1,3 +1,9 @@
+import { ComingSoon } from "@/components/coming-soon";
+
 export default function GymsPage() {
-  return <div>Gyms</div>;
+  return (
+    <div className="container py-10">
+      <ComingSoon />
+    </div>
+  );
 }
