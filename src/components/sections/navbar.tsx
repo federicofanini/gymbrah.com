@@ -46,10 +46,10 @@ export async function Navbar() {
                   <NavUserHome />
                 ) : (
                   <Link
-                    href="/login"
+                    href="/api/auth/login"
                     className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium"
                   >
-                    Login
+                    Sign in
                   </Link>
                 )}
               </div>

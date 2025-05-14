@@ -4,14 +4,14 @@ generator client {
 }
 
 datasource db {
-  provider   = "postgresql"
-  url        = env("DATABASE_URL")
-  directUrl  = env("DIRECT_URL")
-  extensions = [pgvector]
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
   id         String     @id @default(cuid())
+  full_name  String?
   email      String     @unique
   businesses Business[]
 }
@@ -124,7 +124,7 @@ model Review {
 
 model BusinessEmbedding {
   businessId String   @id
-  embedding  Float[]
+  embedding  Float[] // manually set up as `vector` in SQL
   business   Business @relation(fields: [businessId], references: [id])
 }
 
