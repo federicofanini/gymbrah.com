@@ -10,6 +10,17 @@ import { FooterSection } from "@/components/sections/footer-section";
 
 export const revalidate = 3600; // Revalidate GIF URLs every hour
 
+interface Exercise {
+  id: string;
+  name: string | null;
+  body_part: string | null;
+  equipment: string | null;
+  gif_url: string | null;
+  target: string | null;
+  secondary_muscles: string[];
+  instructions: string[];
+}
+
 export async function generateStaticParams() {
   const exercisesResponse = await getExercises({ page: 1, limit: 1000 });
   if (!exercisesResponse?.data?.success) {
@@ -18,7 +29,11 @@ export async function generateStaticParams() {
 
   const exercises = exercisesResponse.data.data?.exercises || [];
   const bodyParts = [
-    ...new Set(exercises.map((exercise: any) => exercise.body_part)),
+    ...new Set(
+      exercises
+        .map((exercise: Exercise) => exercise.body_part || "")
+        .filter(Boolean)
+    ),
   ] as string[];
 
   return bodyParts.map((bodyPart) => ({
@@ -52,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Exercise Library - Browse Exercises with Instructions & Animations",
     description:
-      "Browse our comprehensive collection of exercises with detailed instructions and animations. Find exercises by body part, target muscle, and equipment.",
+      "Browse our collection of exercises with detailed instructions and animations. Find exercises by body part, target muscle, and equipment.",
     type: "website",
     images: [
       {
@@ -82,7 +97,7 @@ function LoadingSkeleton() {
   );
 }
 
-function generateStructuredData(exercises: any[]) {
+function generateStructuredData(exercises: Exercise[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -99,17 +114,36 @@ function generateStructuredData(exercises: any[]) {
   };
 }
 
+type SearchParams = {
+  page?: string;
+  bodyPart?: string;
+  search?: string;
+  target?: string;
+  equipment?: string;
+};
+
+type PageProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: Record<string, never> & Promise<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams: SearchParams & Promise<any>;
+};
+
+export default async function ExercisesPage(props: PageProps) {
+  return (
+    <Suspense fallback={<LoadingSkeleton />}>
+      <ExercisesPageWrapper searchParams={props.searchParams} />
+    </Suspense>
+  );
+}
+
 async function ExercisesPageWrapper({
   searchParams,
 }: {
-  searchParams: {
-    page?: string;
-    bodyPart?: string;
-    search?: string;
-    target?: string;
-    equipment?: string;
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams: SearchParams & Promise<any>;
 }) {
+  // Just use searchParams directly without awaiting for backward compatibility
   const selectedBodyPart = searchParams.bodyPart || "all";
   const currentPage = Number(searchParams.page) || 1;
   const pageSize = 10;
@@ -148,8 +182,33 @@ async function ExercisesPageWrapper({
     exercises: [],
     pagination: { total: 0, pages: 0, currentPage: 1, limit: 10 },
   };
+
+  // Convert potentially nullable fields to non-nullable for component props
+  const sanitizedExercises = {
+    exercises: exercisesData.exercises.map((exercise) => ({
+      id: exercise.id,
+      name: exercise.name || "",
+      body_part: exercise.body_part || "",
+      equipment: exercise.equipment || "",
+      target: exercise.target || "",
+      gif_url: exercise.gif_url || "",
+      secondary_muscles: exercise.secondary_muscles || [],
+      instructions: exercise.instructions || [],
+    })),
+    pagination: exercisesData.pagination,
+  };
+
   const initialExercisesData =
-    initialExercisesResponse.data.data?.exercises || [];
+    initialExercisesResponse.data.data?.exercises?.map((exercise) => ({
+      id: exercise.id,
+      name: exercise.name || "",
+      body_part: exercise.body_part || "",
+      equipment: exercise.equipment || "",
+      target: exercise.target || "",
+      gif_url: exercise.gif_url || "",
+      secondary_muscles: exercise.secondary_muscles || [],
+      instructions: exercise.instructions || [],
+    })) || [];
 
   return (
     <>
@@ -169,7 +228,7 @@ async function ExercisesPageWrapper({
         </p>
 
         <WorkoutPage
-          exercises={exercisesData}
+          exercises={sanitizedExercises}
           initialExercises={initialExercisesData}
           workouts={[]}
           assignedWorkouts={[]}
@@ -178,23 +237,5 @@ async function ExercisesPageWrapper({
       <CTASection />
       <FooterSection />
     </>
-  );
-}
-
-export default function ExercisesPage({
-  searchParams,
-}: {
-  searchParams: {
-    page?: string;
-    bodyPart?: string;
-    search?: string;
-    target?: string;
-    equipment?: string;
-  };
-}) {
-  return (
-    <Suspense fallback={<LoadingSkeleton />}>
-      <ExercisesPageWrapper searchParams={searchParams} />
-    </Suspense>
   );
 }

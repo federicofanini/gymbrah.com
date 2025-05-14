@@ -1,6 +1,9 @@
 import { Suspense } from "react";
-import { Metadata, ResolvingMetadata } from "next";
-import { getExerciseById } from "@/packages/database/exercises/exercise-id";
+import { Metadata } from "next";
+import {
+  getExerciseById,
+  Exercise,
+} from "@/packages/database/exercises/exercise-id";
 import { getExercises } from "@/packages/database/exercises/exercises-list";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -16,12 +19,16 @@ import { notFound } from "next/navigation";
 import { CTASection } from "@/components/sections/cta-section";
 import { FooterSection } from "@/components/sections/footer-section";
 import Link from "next/link";
+import Image from "next/image";
 
 export const revalidate = 3600; // Revalidate GIF URLs every hour
 
-interface Props {
-  params: { exerciseId: string };
-}
+type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: { exerciseId: string } & Promise<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams?: { [key: string]: string | string[] } & Promise<any>;
+};
 
 export async function generateStaticParams() {
   const exercisesResponse = await getExercises({ page: 1, limit: 1000 });
@@ -30,18 +37,15 @@ export async function generateStaticParams() {
   }
 
   return (
-    exercisesResponse.data.data?.exercises.map((exercise: any) => ({
-      exerciseId: `${exercise.id}-${exercise.name
-        .toLowerCase()
-        .replace(/\s+/g, "-")}`,
+    exercisesResponse.data.data?.exercises.map((exercise) => ({
+      exerciseId: `${exercise.id}-${
+        exercise.name?.toLowerCase().replace(/\s+/g, "-") || "exercise"
+      }`,
     })) || []
   );
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const exerciseId = params.exerciseId.split("-")[0];
   const result = await getExerciseById({ id: exerciseId });
 
@@ -72,14 +76,14 @@ export async function generateMetadata(
     openGraph: {
       title: `${exercise.name} - Exercise Guide`,
       description: `Detailed guide for ${exercise.name} targeting ${exercise.target}. Equipment: ${exercise.equipment}`,
-      images: [{ url: exercise.gif_url }],
+      images: [{ url: exercise.gif_url || "" }],
       type: "article",
       url: exerciseUrl,
     },
   };
 }
 
-function generateExerciseStructuredData(exercise: any) {
+function generateExerciseStructuredData(exercise: Exercise) {
   return {
     "@context": "https://schema.org",
     "@type": "HowTo",
@@ -157,12 +161,20 @@ async function ExercisePageContent({ exerciseId }: { exerciseId: string }) {
                     </CardDescription>
                   </div>
                   <div className="w-full md:w-auto">
-                    <img
-                      src={exercise.gif_url}
-                      alt={`${exercise.name} demonstration`}
-                      className="rounded-lg w-full md:w-[300px] h-auto"
-                      loading="lazy"
-                    />
+                    {exercise.gif_url ? (
+                      <Image
+                        src={exercise.gif_url}
+                        alt={`${exercise.name || "Exercise"} demonstration`}
+                        className="rounded-lg w-full md:w-[300px] h-auto"
+                        loading="lazy"
+                        width={300}
+                        height={300}
+                      />
+                    ) : (
+                      <div className="rounded-lg w-full md:w-[300px] h-[300px] bg-muted flex items-center justify-center">
+                        No image available
+                      </div>
+                    )}
                   </div>
                 </div>
               </CardHeader>

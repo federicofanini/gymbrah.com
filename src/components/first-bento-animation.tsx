@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Icons } from "@/components/icons";
 import {
   Reasoning,
   ReasoningContent,
@@ -71,8 +70,8 @@ export function FirstBentoAnimation() {
             }}
           >
             <p className="text-sm text-muted-foreground">
-              Hey, I'm looking for a gym that matches my schedule and fitness
-              goals. Can you help me find the best option in my area?
+              Hey, I&apos;m looking for a gym that matches my schedule and
+              fitness goals. Can you help me find the best option in my area?
             </p>
           </motion.div>
           <div className="flex items-center bg-background rounded-full w-fit border border-border flex-shrink-0">

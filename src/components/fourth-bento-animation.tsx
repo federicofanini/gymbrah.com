@@ -8,7 +8,6 @@ import {
   useSpring,
 } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 interface BoxConfig {
   title: string;

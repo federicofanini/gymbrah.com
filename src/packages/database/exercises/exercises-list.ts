@@ -1,11 +1,13 @@
 "use server";
 
 import { prisma } from "@/packages/database/prisma";
+import { Exercise } from "./exercise-by-bodyPart";
+import { CountResult } from "@/packages/database/types/db-types";
 
 export interface ExercisesResponse {
   success: boolean;
   data?: {
-    exercises: any[];
+    exercises: Exercise[];
     pagination: {
       total: number;
       pages: number;
@@ -30,44 +32,44 @@ export async function getExercises({
   try {
     const skip = (page - 1) * limit;
 
-    let where = {};
+    let totalCount: number;
+    let exercises: Exercise[];
 
-    // Add search filter if provided
     if (search && search.trim() !== "") {
-      where = {
-        OR: [
-          { name: { contains: search, mode: "insensitive" } },
-          { body_part: { contains: search, mode: "insensitive" } },
-          { equipment: { contains: search, mode: "insensitive" } },
-          { target: { contains: search, mode: "insensitive" } },
-        ],
-      };
+      const searchTerm = `%${search}%`;
+
+      // With search filter
+      totalCount = await prisma.$queryRaw`
+        SELECT COUNT(*)::int FROM "exercises"
+        WHERE 
+          name ILIKE ${searchTerm} OR 
+          body_part ILIKE ${searchTerm} OR 
+          equipment ILIKE ${searchTerm} OR 
+          target ILIKE ${searchTerm}
+      `.then((res: unknown) => (res as CountResult[])[0].count);
+
+      exercises = await prisma.$queryRaw`
+        SELECT * FROM "exercises"
+        WHERE 
+          name ILIKE ${searchTerm} OR 
+          body_part ILIKE ${searchTerm} OR 
+          equipment ILIKE ${searchTerm} OR 
+          target ILIKE ${searchTerm}
+        ORDER BY name ASC
+        LIMIT ${limit} OFFSET ${skip}
+      `;
+    } else {
+      // Without search filter
+      totalCount = await prisma.$queryRaw`
+        SELECT COUNT(*)::int FROM "exercises"
+      `.then((res: unknown) => (res as CountResult[])[0].count);
+
+      exercises = await prisma.$queryRaw`
+        SELECT * FROM "exercises"
+        ORDER BY name ASC
+        LIMIT ${limit} OFFSET ${skip}
+      `;
     }
-
-    const totalPromise = prisma.exercises.count({ where });
-    const exercisesPromise = prisma.exercises.findMany({
-      where,
-      select: {
-        id: true,
-        name: true,
-        body_part: true,
-        equipment: true,
-        gif_url: true,
-        target: true,
-        secondary_muscles: true,
-        instructions: true,
-      },
-      skip,
-      take: limit,
-      orderBy: {
-        name: "asc",
-      },
-    });
-
-    const [total, exercises] = await Promise.all([
-      totalPromise,
-      exercisesPromise,
-    ]);
 
     return {
       data: {
@@ -75,8 +77,8 @@ export async function getExercises({
         data: {
           exercises,
           pagination: {
-            total,
-            pages: Math.ceil(total / limit),
+            total: totalCount,
+            pages: Math.ceil(totalCount / limit),
             currentPage: page,
             limit,
           },

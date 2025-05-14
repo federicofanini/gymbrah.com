@@ -1,10 +1,9 @@
 "use client";
 
 import { siteConfig } from "@/lib/config";
-import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 interface NavItem {
   name: string;

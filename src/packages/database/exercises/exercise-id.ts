@@ -2,18 +2,21 @@
 
 import { prisma } from "@/packages/database/prisma";
 
+// Define the exercise type based on what we need
+export interface Exercise {
+  id: string;
+  name: string | null;
+  body_part: string | null;
+  equipment: string | null;
+  gif_url: string | null;
+  target: string | null;
+  secondary_muscles: string[];
+  instructions: string[];
+}
+
 export interface ExerciseResponse {
   success: boolean;
-  data?: {
-    id: string;
-    name: string;
-    body_part: string;
-    equipment: string;
-    gif_url: string;
-    target: string;
-    secondary_muscles: string[];
-    instructions: string[];
-  };
+  data?: Exercise;
   error?: string;
 }
 
@@ -25,21 +28,12 @@ export async function getExerciseById({
   id,
 }: GetExerciseByIdParams): Promise<{ data: ExerciseResponse }> {
   try {
-    const exercise = await prisma.exercises.findUnique({
-      where: {
-        id,
-      },
-      select: {
-        id: true,
-        name: true,
-        body_part: true,
-        equipment: true,
-        gif_url: true,
-        target: true,
-        secondary_muscles: true,
-        instructions: true,
-      },
-    });
+    // Use prisma's raw query capability to get the exercise
+    const exercises = await prisma.$queryRaw<Exercise[]>`
+      SELECT * FROM "exercises" WHERE id = ${id} LIMIT 1
+    `;
+
+    const exercise = exercises[0];
 
     if (!exercise) {
       return {

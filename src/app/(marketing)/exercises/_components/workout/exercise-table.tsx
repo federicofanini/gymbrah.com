@@ -36,6 +36,7 @@ import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { slugify } from "@/lib/utils";
+import Image from "next/image";
 
 interface Exercise {
   id: string;
@@ -59,13 +60,11 @@ interface ExerciseTableProps {
     };
   };
   initialExercises: Exercise[];
-  onAddExercise?: (exercise: Exercise) => void;
 }
 
 export function ExerciseTable({
   exercises,
   initialExercises,
-  onAddExercise,
 }: ExerciseTableProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useQueryState("search", {
@@ -78,13 +77,15 @@ export function ExerciseTable({
     parse: (value: string | null) => value || "all",
   });
 
-  const [page, setPage] = useQueryState("page", {
+  const [currentPage, setPage] = useQueryState("page", {
     defaultValue: "1",
     parse: (value: string | null) => {
       const parsed = parseInt(value || "1");
       return isNaN(parsed) ? "1" : parsed.toString();
     },
   });
+
+  console.log(currentPage);
 
   const handleBodyPartChange = async (value: string) => {
     await setBodyPart(value);
@@ -187,16 +188,20 @@ export function ExerciseTable({
                   className="cursor-pointer hover:bg-muted/50"
                   onClick={() =>
                     router.push(
-                      `/exercises/${exercise.id}-${slugify(exercise.name)}`
+                      `/exercises/${exercise.id}-${slugify(
+                        exercise.name || ""
+                      )}`
                     )
                   }
                 >
                   <TableCell>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <img
-                          src={exercise.gif_url}
-                          alt={exercise.name}
+                        <Image
+                          src={exercise.gif_url || "/images/placeholder.png"}
+                          alt={exercise.name || "Exercise demonstration"}
+                          width={64}
+                          height={64}
                           className="w-16 h-16 object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
                         />
                       </DialogTrigger>
@@ -207,9 +212,11 @@ export function ExerciseTable({
                           </DialogTitle>
                         </DialogHeader>
                         <div className="flex justify-center">
-                          <img
-                            src={exercise.gif_url}
-                            alt={exercise.name}
+                          <Image
+                            src={exercise.gif_url || "/images/placeholder.png"}
+                            alt={exercise.name || "Exercise demonstration"}
+                            width={400}
+                            height={400}
                             className="w-full max-w-md object-contain rounded-lg"
                           />
                         </div>
@@ -219,7 +226,9 @@ export function ExerciseTable({
                   <TableCell className="font-medium capitalize">
                     <div>
                       <Link
-                        href={`/exercises/${slugify(exercise.name)}`}
+                        href={`/exercises/${exercise.id}-${slugify(
+                          exercise.name || ""
+                        )}`}
                         className="hover:text-primary transition-colors"
                       >
                         {exercise.name}

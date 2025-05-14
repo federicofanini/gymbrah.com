@@ -1,12 +1,23 @@
 "use server";
 
 import { prisma } from "@/packages/database/prisma";
-import type { Prisma } from "@prisma/client";
+import { CountResult } from "../types/db-types";
+
+export interface Exercise {
+  id: string;
+  name: string | null;
+  body_part: string | null;
+  equipment: string | null;
+  gif_url: string | null;
+  target: string | null;
+  secondary_muscles: string[];
+  instructions: string[];
+}
 
 export interface ExerciseResponse {
   success: boolean;
   data?: {
-    exercises: any[];
+    exercises: Exercise[];
     pagination: {
       total: number;
       pages: number;
@@ -31,40 +42,40 @@ export async function getExercisesByBodyPart({
   try {
     const skip = (page - 1) * limit;
 
-    let where: any = {};
-
-    // Handle the "all" case specially
-    if (bodyPart !== "all") {
-      where = {
-        body_part: bodyPart,
-      };
-    }
-
     // Use prisma client directly to check if model exists
     if (!prisma.$queryRaw) {
       throw new Error("Database client is not properly initialized");
     }
 
-    const totalCount = await prisma.exercises.count({ where });
+    let totalCount: number;
+    let exercises: Exercise[];
 
-    const exercises = await prisma.exercises.findMany({
-      where,
-      select: {
-        id: true,
-        name: true,
-        body_part: true,
-        equipment: true,
-        gif_url: true,
-        target: true,
-        secondary_muscles: true,
-        instructions: true,
-      },
-      skip,
-      take: limit,
-      orderBy: {
-        name: "asc",
-      },
-    });
+    if (bodyPart === "all") {
+      // For "all" case - no filtering
+      totalCount =
+        await prisma.$queryRaw`SELECT COUNT(*)::int FROM "exercises"`.then(
+          (res: unknown) => (res as CountResult[])[0].count
+        );
+
+      exercises = await prisma.$queryRaw`
+        SELECT * FROM "exercises"
+        ORDER BY name ASC
+        LIMIT ${limit} OFFSET ${skip}
+      `;
+    } else {
+      // For specific body part
+      totalCount = await prisma.$queryRaw`
+        SELECT COUNT(*)::int FROM "exercises" 
+        WHERE body_part = ${bodyPart}
+      `.then((res: unknown) => (res as CountResult[])[0].count);
+
+      exercises = await prisma.$queryRaw`
+        SELECT * FROM "exercises"
+        WHERE body_part = ${bodyPart}
+        ORDER BY name ASC
+        LIMIT ${limit} OFFSET ${skip}
+      `;
+    }
 
     return {
       data: {
