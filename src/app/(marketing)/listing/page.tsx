@@ -6,6 +6,7 @@ import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
+import { paths } from "@/lib/path";
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -15,7 +16,7 @@ async function BusinessListWrapper() {
   const user = await getUser();
 
   if (!user?.id) {
-    redirect("/auth/login");
+    redirect(paths.api.login);
   }
 
   const result = await getBusinessesByOwner(user.id);
