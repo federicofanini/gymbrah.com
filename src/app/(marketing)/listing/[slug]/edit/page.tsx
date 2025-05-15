@@ -8,7 +8,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { BusinessFormWrapper } from "./_components/business-form-wrapper";
 
 type Props = {
-  params: { slug: string };
+  params: { slug: string } & Promise<{ slug: string }>;
 };
 
 // Revalidate every hour
