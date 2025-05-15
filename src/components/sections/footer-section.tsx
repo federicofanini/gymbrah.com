@@ -8,6 +8,7 @@ import { ChevronRightIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 import { GithubStars } from "../github-stars";
+import { DR } from "./dr";
 
 export function FooterSection() {
   const tablet = useMediaQuery("(max-width: 1024px)");
@@ -41,6 +42,7 @@ export function FooterSection() {
               <GithubStars />
             </Link>
           </div>
+          <DR />
         </div>
         <div className="pt-5 md:w-1/2">
           <div className="flex flex-col items-start justify-start md:flex-row md:items-center md:justify-between gap-y-5 lg:pl-10">
