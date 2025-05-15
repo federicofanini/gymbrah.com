@@ -1,4 +1,6 @@
-import { prisma } from "../prisma";
+"use server";
+
+import { prisma } from "@/packages/database/prisma";
 import { BusinessResponse } from "./types";
 
 export async function deleteBusiness(id: string): Promise<BusinessResponse> {
