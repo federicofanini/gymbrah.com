@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { DR } from "@/components/sections/dr";
 
 export const dynamic = "force-static";
 
@@ -56,9 +57,7 @@ export default function SponsorPage() {
           <div className="space-y-4 pt-8">
             <h2 className="text-2xl font-medium">Why Sponsor?</h2>
             <ul className="space-y-3 text-muted-foreground">
-              <li>
-                • Share your work with a growing network of fitness enthusiasts
-              </li>
+              <li>• Get backlinked on 30+ DR website </li>
               <li>
                 • Help us improve open-source tools for the fitness community
               </li>
@@ -68,6 +67,7 @@ export default function SponsorPage() {
               </li>
             </ul>
           </div>
+          <DR />
         </div>
       </div>
     </main>
