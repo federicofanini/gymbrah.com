@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { FooterSection } from "@/components/sections/footer-section";
 
 export const dynamic = "force-static";
 
@@ -71,7 +70,6 @@ export default function SponsorPage() {
           </div>
         </div>
       </div>
-      <FooterSection />
     </main>
   );
 }

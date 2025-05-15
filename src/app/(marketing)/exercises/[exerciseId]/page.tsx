@@ -16,8 +16,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeftIcon, Loader2 } from "lucide-react";
 import { notFound } from "next/navigation";
-import { CTASection } from "@/components/sections/cta-section";
-import { FooterSection } from "@/components/sections/footer-section";
 import Link from "next/link";
 import { FallbackImage } from "@/components/ui/fallback-image";
 
@@ -232,8 +230,6 @@ async function ExercisePageContent({ exerciseId }: { exerciseId: string }) {
           </article>
         </div>
       </div>
-      <CTASection />
-      <FooterSection />
     </>
   );
 }

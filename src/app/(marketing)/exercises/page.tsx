@@ -5,8 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getExercisesByBodyPart } from "@/packages/database/exercises/exercise-by-bodyPart";
 import { getExercises } from "@/packages/database/exercises/exercises-list";
-import { CTASection } from "@/components/sections/cta-section";
-import { FooterSection } from "@/components/sections/footer-section";
 
 export const revalidate = 3600; // Revalidate GIF URLs every hour
 
@@ -161,8 +159,6 @@ async function ExercisesPageWrapper({
           <h1 className="text-2xl font-bold mb-4">Exercise Library</h1>
           <p className="text-muted-foreground">Failed to load exercises.</p>
         </div>
-        <CTASection />
-        <FooterSection />
       </>
     );
   }
@@ -234,8 +230,6 @@ async function ExercisesPageWrapper({
           assignedWorkouts={[]}
         />
       </div>
-      <CTASection />
-      <FooterSection />
     </>
   );
 }
