@@ -1,9 +1,16 @@
 import { ComingSoon } from "@/components/coming-soon";
+import { getSubscriberCount } from "@/packages/resend/subscribe";
 
-export default function PtsPage() {
+export default async function PtsPage() {
+  const response = await getSubscriberCount();
+  const memberCount =
+    response.success && "data" in response
+      ? (response.data as { count: number }).count
+      : 0;
+
   return (
     <div className="container py-10">
-      <ComingSoon />
+      <ComingSoon members={memberCount} />
     </div>
   );
 }

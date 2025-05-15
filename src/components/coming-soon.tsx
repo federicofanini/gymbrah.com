@@ -8,12 +8,14 @@ interface ComingSoonProps {
   title?: string;
   description?: string;
   showSubscribe?: boolean;
+  members?: number;
 }
 
 export function ComingSoon({
   title = "Coming Soon",
   description = "We're working hard to bring you this feature. Stay tuned for updates!",
   showSubscribe = true,
+  members,
 }: ComingSoonProps) {
   return (
     <div className="w-full flex flex-col items-center justify-center py-16 px-4">
@@ -40,6 +42,9 @@ export function ComingSoon({
             </div>
           </div>
         )}
+        <span className="flex items-center gap-2 justify-center text-muted-foreground">
+          Join <p className="font-bold">{members}</p> members in the waitlist
+        </span>
       </div>
     </div>
   );
