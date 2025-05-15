@@ -24,6 +24,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { CreateBusinessInput } from "@/packages/database/business";
 import { slugify } from "@/lib/utils";
+import { PlusIcon, XIcon } from "lucide-react";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 
 export const businessSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -93,6 +96,28 @@ export function BusinessForm({
       services: initialData?.services || [],
     },
   });
+
+  const [newService, setNewService] = useState("");
+
+  const addService = (service: string) => {
+    const trimmedService = service.trim();
+    if (
+      trimmedService &&
+      !form.getValues("services").includes(trimmedService)
+    ) {
+      const currentServices = form.getValues("services");
+      form.setValue("services", [...currentServices, trimmedService]);
+    }
+    setNewService("");
+  };
+
+  const removeService = (serviceToRemove: string) => {
+    const currentServices = form.getValues("services");
+    form.setValue(
+      "services",
+      currentServices.filter((service) => service !== serviceToRemove)
+    );
+  };
 
   const handleSubmit = async (values: z.infer<typeof businessSchema>) => {
     const formData = {
@@ -304,21 +329,54 @@ export function BusinessForm({
             name="services"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Services (comma-separated)</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Gym, Personal Training, Yoga"
-                    value={field.value.join(", ")}
-                    onChange={(e) => {
-                      const services = e.target.value
-                        .split(",")
-                        .map((s) => s.trim())
-                        .filter(Boolean);
-                      field.onChange(services);
-                    }}
-                  />
-                </FormControl>
+                <FormLabel>Fitness services</FormLabel>
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {field.value.map((service) => (
+                      <Badge
+                        key={service}
+                        variant="secondary"
+                        className="flex items-center gap-1"
+                      >
+                        {service}
+                        <button
+                          type="button"
+                          onClick={() => removeService(service)}
+                          className="ml-1 ring-offset-background transition-colors hover:text-destructive focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                        >
+                          <XIcon className="h-3 w-3" />
+                          <span className="sr-only">Remove {service}</span>
+                        </button>
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Add a service (e.g., Personal Training)"
+                      value={newService}
+                      onChange={(e) => setNewService(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          addService(newService);
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      onClick={() => addService(newService)}
+                      className="flex items-center gap-2"
+                    >
+                      <PlusIcon className="h-4 w-4" />
+                      Add
+                    </Button>
+                  </div>
+                </div>
                 <FormMessage />
+                <p className="text-sm text-muted-foreground">
+                  Add the services you offer. Press Enter or click Add after
+                  typing each service.
+                </p>
               </FormItem>
             )}
           />
