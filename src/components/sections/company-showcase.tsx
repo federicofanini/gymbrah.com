@@ -1,9 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import sponsorConfig from "./company-showcase-config.json";
 
 export function CompanyShowcase() {
-  // Create array of 4 empty sponsor spots
-  const emptySpots = Array.from({ length: 8 }, (_, i) => i);
+  const sponsors = sponsorConfig.sponsors;
 
   return (
     <section
@@ -14,18 +15,39 @@ export function CompanyShowcase() {
         Support the project by becoming a sponsor
       </p>
       <div className="grid w-full max-w-7xl grid-cols-2 md:grid-cols-4 overflow-hidden border-y border-border items-center justify-center z-20">
-        {emptySpots.map((spot) => (
+        {sponsors.map((sponsor) => (
           <Link
-            href="/sponsor"
+            href={sponsor.url}
             className="group w-full h-28 flex items-center justify-center relative p-4 before:absolute before:-left-1 before:top-0 before:z-10 before:h-screen before:w-px before:bg-border before:content-[''] after:absolute after:-top-1 after:left-0 after:z-10 after:h-px after:w-screen after:bg-border after:content-['']"
-            key={spot}
+            key={sponsor.id}
           >
             <div className="transition-all duration-200 [cubic-bezier(0.165, 0.84, 0.44, 1)] translate-y-0 group-hover:-translate-y-4 duration-300 flex items-center justify-center w-full h-full">
-              <span className="text-gray-400">Your logo here</span>
+              {sponsor.isUsed && sponsor.logo ? (
+                <div className="flex flex-col items-center justify-center gap-1 max-w-[180px]">
+                  <Image
+                    src={sponsor.logo}
+                    alt={sponsor.name || "Sponsor logo"}
+                    width={40}
+                    height={40}
+                    className="h-10 w-10"
+                  />
+                  <div className="flex flex-col items-center justify-center gap-1">
+                    <p className="text-xs text-center text-muted-foreground line-clamp-1">
+                      {sponsor.name ? sponsor.name : "Your logo here"}
+                    </p>
+                    <p className="text-xs text-center text-muted-foreground line-clamp-2 mt-1">
+                      {sponsor.description}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <span className="text-gray-400">Your logo here</span>
+              )}
             </div>
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-8 group-hover:translate-y-4 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
               <span className="flex items-center gap-2 text-sm font-medium">
-                Become a Sponsor <ArrowRight className="w-4 h-4" />
+                {sponsor.isUsed ? `Visit ${sponsor.name}` : "Become a Sponsor"}{" "}
+                <ArrowRight className="w-4 h-4" />
               </span>
             </div>
           </Link>

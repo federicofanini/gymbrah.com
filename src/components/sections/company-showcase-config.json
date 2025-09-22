@@ -1,0 +1,68 @@
+{
+  "sponsors": [
+    {
+      "id": 1,
+      "name": "Uara.ai",
+      "logo": "/sponsors/uara.svg",
+      "url": "https://uara.ai?ref=gymbrah.com",
+      "description": "Your Notion for Health, AI powered.",
+      "isUsed": true
+    },
+    {
+      "id": 2,
+      "name": null,
+      "logo": null,
+      "url": "/sponsor",
+      "description": "",
+      "isUsed": false
+    },
+    {
+      "id": 3,
+      "name": null,
+      "logo": null,
+      "url": "/sponsor",
+      "description": "",
+      "isUsed": false
+    },
+    {
+      "id": 4,
+      "name": null,
+      "logo": null,
+      "url": "/sponsor",
+      "description": "",
+      "isUsed": false
+    },
+    {
+      "id": 5,
+      "name": null,
+      "logo": null,
+      "url": "/sponsor",
+      "description": "",
+      "isUsed": false
+    },
+    {
+      "id": 6,
+      "name": null,
+      "logo": null,
+      "url": "/sponsor",
+      "description": "",
+      "isUsed": false
+    },
+    {
+      "id": 7,
+      "name": null,
+      "logo": null,
+      "url": "/sponsor",
+      "description": "",
+      "isUsed": false
+    },
+    {
+      "id": 8,
+      "name": null,
+      "logo": null,
+      "url": "/sponsor",
+      "description": "",
+      "isUsed": false
+    }
+  ]
+}
