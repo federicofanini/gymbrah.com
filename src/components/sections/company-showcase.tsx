@@ -29,7 +29,7 @@ export function CompanyShowcase() {
                     alt={sponsor.name || "Sponsor logo"}
                     width={40}
                     height={40}
-                    className="h-10 w-10"
+                    className="h-10 w-10 rounded-full"
                   />
                   <div className="flex flex-col items-center justify-center gap-1">
                     <p className="text-xs text-center text-muted-foreground line-clamp-1">

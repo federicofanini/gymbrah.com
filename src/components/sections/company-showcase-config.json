@@ -10,11 +10,11 @@
     },
     {
       "id": 2,
-      "name": null,
-      "logo": null,
-      "url": "/sponsor",
-      "description": "",
-      "isUsed": false
+      "name": "Uara.co",
+      "logo": "/sponsors/uaraco.png",
+      "url": "https://uara.co?ref=gymbrah.com",
+      "description": "Website as a Service for a flat monthly fee.",
+      "isUsed": true
     },
     {
       "id": 3,
