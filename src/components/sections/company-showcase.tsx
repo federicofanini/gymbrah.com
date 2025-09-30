@@ -20,6 +20,7 @@ export function CompanyShowcase() {
             href={sponsor.url}
             className="group w-full h-28 flex items-center justify-center relative p-4 before:absolute before:-left-1 before:top-0 before:z-10 before:h-screen before:w-px before:bg-border before:content-[''] after:absolute after:-top-1 after:left-0 after:z-10 after:h-px after:w-screen after:bg-border after:content-['']"
             key={sponsor.id}
+            target="_blank"
           >
             <div className="transition-all duration-200 [cubic-bezier(0.165, 0.84, 0.44, 1)] translate-y-0 group-hover:-translate-y-4 duration-300 flex items-center justify-center w-full h-full">
               {sponsor.isUsed && sponsor.logo ? (
@@ -45,7 +46,8 @@ export function CompanyShowcase() {
               )}
             </div>
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-8 group-hover:translate-y-4 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-              <span className="flex items-center gap-2 text-sm font-medium">
+              <div className="absolute inset-0 bg-white/60 dark:bg-black/40 backdrop-blur-sm rounded-lg z-0" />
+              <span className="flex items-center gap-2 text-sm font-medium z-10 relative">
                 {sponsor.isUsed ? `Visit ${sponsor.name}` : "Become a Sponsor"}{" "}
                 <ArrowRight className="w-4 h-4" />
               </span>

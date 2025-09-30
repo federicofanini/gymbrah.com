@@ -10,19 +10,19 @@
     },
     {
       "id": 2,
+      "name": "LockedIn",
+      "logo": "/sponsors/lockedin.png",
+      "url": "https://lockedin.bio?ref=gymbrah.com",
+      "description": "Open source social accountability app for builders, makers, and founders.",
+      "isUsed": true
+    },
+    {
+      "id": 3,
       "name": "Uara.co",
       "logo": "/sponsors/uaraco.png",
       "url": "https://uara.co?ref=gymbrah.com",
       "description": "Website as a Service for a flat monthly fee.",
       "isUsed": true
-    },
-    {
-      "id": 3,
-      "name": null,
-      "logo": null,
-      "url": "/sponsor",
-      "description": "",
-      "isUsed": false
     },
     {
       "id": 4,
